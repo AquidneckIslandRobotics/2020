@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj2.command.Command;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+ public XboxContoller drivingJoystick = new XboxController(1);
+ Button button = new JoystickButton
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
@@ -31,10 +33,14 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    a_drive.setDefaultCommand(new InstantCommand()) -> a_drive.curvatureDrive(
+      drivingJoystick1.getY(GenericHID.Hand.kLeft);
+      drivingJoystick1.getX(GenericHID.Hand.kRight)
+    )
     // Configure the button bindings
     configureButtonBindings();
   }
-
+            
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link

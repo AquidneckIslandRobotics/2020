@@ -17,7 +17,7 @@ package frc.robot;
  */
 public final class Constants { 
     //Drive
-    public static final int leftLeader = 1;
+    public static final int leftleader = 1;
     public static final int leftfollower1 = 3;
     public static final int leftfollower2 = 2;
     public static final int rightleader = 15;
