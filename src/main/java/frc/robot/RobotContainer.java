@@ -13,6 +13,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
+
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -21,6 +22,8 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  public XboxController drivingJoystick1 = new XboxController(1);
+  
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -42,6 +45,12 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+    m_drive.setDefaultCommand(new InstantCommand(()-> m_drive.curvatureDrive(
+      drivingJoystick1.getY(GenericHID.Hand.kLeft),
+      drivingJoystick1.getX(GenericHID.Hand.kRight),
+      button.get()),
+      m_drive));
   }
 
 
