@@ -23,7 +23,9 @@ public final class Constants {
  public static final int LeftFollower2 = 2;
  public static final int RightLeader = 15;
  public static final int RightFollower1 = 14;
- public static final int RightFollower2 = 16; 
+ public static final int RightFollower2 = 16;
+ public static final int LeftElevator = 5;
+ public static final int RightElevator = 10; 
  
  
 }

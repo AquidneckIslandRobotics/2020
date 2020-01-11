@@ -9,10 +9,14 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import frc.robot.subsystems.Drive;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Button;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -23,10 +27,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public XboxController drivingJoystick1 = new XboxController(1);
-  
+  Button button = new JoystickButton(drivingJoystick1, 6);
+
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final Drive m_drive = new Drive();
 
 
 
@@ -35,8 +41,11 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-    configureButtonBindings();
-  }
+configureButtonBindings();
+
+  m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+  
+}
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
@@ -44,14 +53,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
+  private void configureButtonBindings()
+   {
 
-    m_drive.setDefaultCommand(new InstantCommand(()-> m_drive.curvatureDrive(
-      drivingJoystick1.getY(GenericHID.Hand.kLeft),
-      drivingJoystick1.getX(GenericHID.Hand.kRight),
-      button.get()),
-      m_drive));
-  }
+   }
 
 
   /**

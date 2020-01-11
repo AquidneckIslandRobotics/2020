@@ -31,10 +31,10 @@ public class Drive extends SubsystemBase {
     rightFollower1.follow(rightLeader);
     rightFollower2.follow(rightLeader);
 
-    double speed = 0.5;
-    double rotation = 0.5;
-    boolean quickTurn = true;
-   diffDrive.curvatureDrive(speed, rotation, quickTurn);
+  }
+
+   public void curvatureDrive(double speed, double rotation, boolean quickTurn) {
+    diffDrive.curvatureDrive(speed, rotation, quickTurn);
    
   }
 
