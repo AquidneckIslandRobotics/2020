@@ -36,7 +36,8 @@ public class ElevatorDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    private 
+    int dad;
+    dad = m_joystick.getPOV()
   }
 
   // Called once the command ends or is interrupted.
