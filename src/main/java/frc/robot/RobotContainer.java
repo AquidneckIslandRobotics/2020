@@ -13,10 +13,17 @@ import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+<<<<<<< HEAD
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
+=======
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import frc.robot.subsystems.Drive;
+>>>>>>> 63b5df266423e93493e1f033140b4fad0c1525de
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -25,6 +32,10 @@ import edu.wpi.first.wpilibj2.command.button.Button;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+  public XboxController drivingJoystick1 = new XboxController(1);
+
+  Button button = new JoystickButton(drivingJoystick1, 6);
   // The robot's subsystems and commands are defined here...
   public XboxController drivingJoystick1 = new XboxController(1);
   Button button = new JoystickButton(drivingJoystick1, 6);
@@ -32,7 +43,11 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+<<<<<<< HEAD
   private final Drive m_drive = new Drive();
+=======
+  public final Drive m_drive = new Drive();
+>>>>>>> 63b5df266423e93493e1f033140b4fad0c1525de
 
 
 
@@ -40,12 +55,22 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+   
+    
     // Configure the button bindings
+<<<<<<< HEAD
 configureButtonBindings();
 
   m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
   
 }
+=======
+    configureButtonBindings();
+    m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+     
+    
+  }
+>>>>>>> 63b5df266423e93493e1f033140b4fad0c1525de
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
