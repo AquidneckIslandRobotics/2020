@@ -9,15 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-<<<<<<< HEAD
-import edu.wpi.first.wpilibj.XboxController.Button;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.buttons.Button;
-
-=======
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -26,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.subsystems.Drive;
->>>>>>> 2ad20e9e42c9a0287d93177ecacbcc9d68f5449f
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -35,25 +25,16 @@ import frc.robot.subsystems.Drive;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-<<<<<<< HEAD
-  public XboxController drivingJoystick1 = new XboxController(1);
-  JoystickButton button = new JoystickButton(drivingJoystick1, 2);
-=======
 
   public XboxController drivingJoystick1 = new XboxController(1);
 
   Button button = new JoystickButton(drivingJoystick1, 6);
->>>>>>> 2ad20e9e42c9a0287d93177ecacbcc9d68f5449f
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-<<<<<<< HEAD
-  private final Drive m_drive = new Drive();
-=======
   public final Drive m_drive = new Drive();
 
->>>>>>> 2ad20e9e42c9a0287d93177ecacbcc9d68f5449f
 
 
   /**
@@ -64,17 +45,9 @@ public class RobotContainer {
     
     // Configure the button bindings
     configureButtonBindings();
-<<<<<<< HEAD
-  
-  drivingJoystick.getY(GenericHID.HAND.kLeft);
-  drivingJoystick.getX(GenericHID.HAND.kRight);
-  button.get()),bb
-  
-=======
     m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
      
     
->>>>>>> 2ad20e9e42c9a0287d93177ecacbcc9d68f5449f
   }
 
   /**
