@@ -14,13 +14,13 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-public class Climbing extends CommandBase {
+public class Hanging extends CommandBase {
   TalonSRX leftElevator = new TalonSRX(Constants.LeftElevator);
   TalonSRX rightElevator = new TalonSRX(Constants.RightElevator);
   /**
    * Creates a new Climbing.
    */
-  public Climbing() {
+  public Hanging() {
     leftElevator.configFactoryDefault();
     leftElevator.follow(rightElevator);
     rightElevator.configFactoryDefault();
