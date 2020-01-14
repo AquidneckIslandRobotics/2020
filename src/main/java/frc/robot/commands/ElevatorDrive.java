@@ -37,7 +37,7 @@ public class ElevatorDrive extends CommandBase {
   @Override
   public void execute() {
     int dad;
-    dad = m_joystick.getPOV()
+    dad = m_joystick.getPOV();
   }
 
   // Called once the command ends or is interrupted.
