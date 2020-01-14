@@ -18,31 +18,35 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.subsystems.Drive;
 
-
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer{
+public class RobotContainer {
+
   public XboxController drivingJoystick1 = new XboxController(1);
+
   Button button = new JoystickButton(drivingJoystick1, 6);
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final Drive m_drive = new Drive();
+  public final Drive m_drive = new Drive();
+
 
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+   
+    
     // Configure the button bindings
     configureButtonBindings();
-
     m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+     
     
   }
 
