@@ -34,10 +34,11 @@ public class ElevatorDrive extends CommandBase {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
+  //dad is actually dpad.
   @Override
   public void execute() {
     int dad;
-    dad = m_joystick.getPOV()
+    dad = m_joystick.getPOV();
   }
 
   // Called once the command ends or is interrupted.
