@@ -22,21 +22,35 @@ public class ElevatorDrive extends CommandBase {
     m_elevator = elevator;
     m_joystick = joystick;
     addRequirements(elevator);
+<<<<<<< HEAD
     
+=======
+
+
+>>>>>>> a01de955b84627ec750e55a0039e5c3c91a8ef7b
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+<<<<<<< HEAD
+=======
+
+>>>>>>> a01de955b84627ec750e55a0039e5c3c91a8ef7b
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+<<<<<<< HEAD
    int dad;
   dad = m_joystick.getPOV();
   
+=======
+    int dad;
+    dad = m_joystick.getPOV();
+>>>>>>> a01de955b84627ec750e55a0039e5c3c91a8ef7b
   }
 
   // Called once the command ends or is interrupted.
