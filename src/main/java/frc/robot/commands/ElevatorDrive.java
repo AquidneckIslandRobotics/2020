@@ -34,6 +34,7 @@ public class ElevatorDrive extends CommandBase {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
+  //dad is actually dpad.
   @Override
   public void execute() {
     int dad;
