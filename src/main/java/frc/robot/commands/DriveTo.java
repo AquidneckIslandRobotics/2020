@@ -8,12 +8,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Drive;
 
 public class DriveTo extends CommandBase {
+  private Drive m_drive;
+  private double m_distance;
+
+
   /**
    * Creates a new DriveTo.
    */
-  public DriveTo() {
+  public DriveTo(Drive drive, double distance) {
+    m_drive = drive;
+    m_distance = distance;
+    
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
