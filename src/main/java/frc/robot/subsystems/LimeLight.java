@@ -8,19 +8,12 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants; 
-import com.ctre.phoenix.motorcontrol.NeutralMode; 
 
-
-public class Turret extends SubsystemBase {
-  TalonSRX turretServo = new TalonSRX(Constants.TurretServo); 
+public class LimeLight extends SubsystemBase {
   /**
-   * Creates a new Turret.
+   * Creates a new LimeLight.
    */
-  public Turret() {
- turretServo.setNeutralMode(NeutralMode.Brake); 
-    
-    
+  public LimeLight() {
 
   }
 
@@ -28,12 +21,4 @@ public class Turret extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-public void setSpeed(double speed) {
-  turretServo.set(ControlMode.PercentOutput, speed); 
-
-  }
-
-public void stopTurret(){
-  turretServo.set(ControlMode.PercentOutput, 0); 
-}
 }
