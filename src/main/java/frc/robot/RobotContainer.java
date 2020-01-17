@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -26,15 +27,30 @@ import frc.robot.subsystems.Drive;
  */
 public class RobotContainer {
 
-  public XboxController drivingJoystick1 = new XboxController(1);
+  public static XboxController drivingJoystick1 = new XboxController(1);
+
+
+  public static double getRightX() {
+    //Get raw value from joystick
+    double rightX = drivingJoystick1.getX(Hand.kRight);
+    //Check for deadzone
+    if (Math.abs(rightX) < 0.05) {
+      rightX = 0;
+    }
+    //Return adjusted value
+    return rightX;
+  }
+  
 
   Button button = new JoystickButton(drivingJoystick1, 6);
+
+  //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
+
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   public final Drive m_drive = new Drive();
-
 
 
   /**
@@ -59,7 +75,6 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
   }
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

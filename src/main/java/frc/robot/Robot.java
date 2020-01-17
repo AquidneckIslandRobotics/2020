@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.TurretTurn;
+import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; 
 import edu.wpi.first.wpilibj.util.Color; 
@@ -24,6 +26,7 @@ import com.revrobotics.ColorSensorV3;
 public class Robot extends TimedRobot {
   private final I2C.Port i2cPort = I2C.Port.kOnboard; 
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort); 
+  public static Turret m_turret = new Turret();
 
   private Command m_autonomousCommand;
 
@@ -38,6 +41,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_turret.setDefaultCommand(new TurretTurn());
   }
 
   /**
@@ -61,6 +65,8 @@ public class Robot extends TimedRobot {
    SmartDashboard.putNumber("Blue", detectedColor.blue);  
    SmartDashboard.putNumber("IR", IR); 
    SmartDashboard.putString("Color", colorDetector(detectedColor));
+   
+   SmartDashboard.putNumber("Right X", RobotContainer.getRightX());
    int proximity = m_colorSensor.getProximity(); 
    SmartDashboard.putNumber("Proximity", proximity); 
    }
