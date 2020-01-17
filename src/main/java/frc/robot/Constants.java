@@ -24,5 +24,11 @@ public final class Constants {
     public static final int RightFollower2 = 16;
     public static final int LeftElevator = 5;
     public static final int RightElevator = 10;
+
+    public static final int TurretServo = 6; //this is not the right position
+    public static final int kPIDLoopIdx = 0;
+    public static final int kTimeoutMs = 0; 
+    public static final int kSensorPhase = 0; 
+    public static final int kMotorInvert = 0;
 }
 
