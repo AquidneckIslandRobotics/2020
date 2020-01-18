@@ -27,11 +27,13 @@ import edu.wpi.first.wpilibj.Servo;
 
 public class Turret extends SubsystemBase {
   public static TalonSRX turretServo = new TalonSRX(Constants.TurretServo);
-
+  //public static Encoder turretEncoder = new Encoder(Constants.TurretEncoder); 
   public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   public NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
+ 
+
   /**
    * Creates a new Turret.
    */
@@ -65,7 +67,7 @@ public class Turret extends SubsystemBase {
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightX", y);
     SmartDashboard.putNumber("LimelightArea", area);
-    SmartDashboard.putNumber("Turret Encoder", )
+   // SmartDashboard.putNumber("Turret Encoder", turretEncoder); 
     // This method will be called once per scheduler run
   }
 
