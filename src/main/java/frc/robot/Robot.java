@@ -42,6 +42,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     m_turret.setDefaultCommand(new TurretTurn());
+    //m_turret.lightsOff();
   }
 
   /**

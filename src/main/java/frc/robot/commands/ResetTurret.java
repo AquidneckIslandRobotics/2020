@@ -7,47 +7,33 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.Turret;
-import frc.robot.commands.TurretTurn;
+import frc.robot.subsystems.Turret; 
 
-
-public class TurretTarget extends CommandBase {
-  public double initialTurretEncoderPos;
-  public double distanceInClicksTurret;
-
+public class ResetTurret extends CommandBase {
   /**
-   * Creates a new TurretTarget.
+   * Creates a new ResetTurret.
    */
-  public TurretTarget(/*double distanceInClicksTurret*/) {
-   // addRequirements(Robot.m_turret);
-    distanceInClicksTurret = 155; // Do we need this to turn?
-    // Use addRequirements() here to declare subsystem dependencies.
+  public ResetTurret() {
     addRequirements(Robot.m_turret);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.m_turret.lightsOn();
+    Robot.m_turret.resetTurret(); 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xval = Robot.m_turret.getLimelightX();
-    double speed = xval * -0.035;
-    Robot.m_turret.setSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.m_turret.stopTurret();
-    Robot.m_turret.lightsOff();
-
   }
 
   // Returns true when the command should end.

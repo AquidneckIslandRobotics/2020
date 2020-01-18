@@ -17,14 +17,15 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class TurretTurn extends CommandBase {
-  private XboxController m_joystick;
-  private Turret m_turret;
-  private double targetPositionRotations;
+  //private XboxController m_joystick;
+  //private Turret m_turret;
+  //private double targetPositionRotations;
 
   /**
    * Creates a new TurretTurn.
    */
   public TurretTurn(/*XboxController joystick, Turret turret*/) {
+    addRequirements(Robot.m_turret);
     // Use addRequirements() here to declare subsystem dependencies.
     /*m_joystick = joystick;
     m_turret = turret;
@@ -37,32 +38,6 @@ public class TurretTurn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
-    /*m_turret.turretServo.configFactoryDefault();
-    m_turret.turretServo.configSelectedFeedbackSensor
-    (FeedbackDevice.CTRE_MagEncoder_Relative, 
-    Constants.kPIDLoopIdx,
-    Constants.kTimeoutMs);
-
-    m_turret.turretServo.setSensorPhase(Constants.kSensorPhase);
-    m_turret.turretServo.setInverted(Constants.kMotorInvert);
-    m_turret.turretServo.configNominalOutputForward(0, Constants.kTimeoutMs);
-    m_turret.turretServo.configNominalOutputReverse(0, Constants.kTimeoutMs);
-    m_turret.turretServo.configPeakOutputForward(1, Constants.kTimeoutMs);
-    m_turret.turretServo.configPeakOutputReverse(-1, Constants.kTimeoutMs);
-    m_turret.turretServo.configAllowableClosedloopError(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-		m_turret.turretServo.config_kF(Constants.kPIDLoopIdx, Constants.kF, Constants.kTimeoutMs);
-		m_turret.turretServo.config_kP(Constants.kPIDLoopIdx, Constants.kP, Constants.kTimeoutMs);
-		m_turret.turretServo.config_kI(Constants.kPIDLoopIdx, Constants.kI, Constants.kTimeoutMs);
-    m_turret.turretServo.config_kD(Constants.kPIDLoopIdx, Constants.kD, Constants.kTimeoutMs);
-    
-    int absolutePosition = m_turret.turretServo.getSensorCollection().getPulseWidthPosition();
-
-		absolutePosition &= 0xFFF;
-		if (Constants.kSensorPhase) { absolutePosition *= -1; }
-		if (Constants.kMotorInvert) { absolutePosition *= -1; }
-		
-		m_turret.turretServo.setSelectedSensorPosition(absolutePosition, Constants.kPIDLoopIdx, Constants.kTimeoutMs);*/
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -70,13 +45,13 @@ public class TurretTurn extends CommandBase {
   public void execute() {
     // targetPositionRotations = leftYstick * 4096
     // turretServo.set(ControlMode.Positon, targetPositionRotations);
-    m_turret.setSpeed(RobotContainer.getRightX());
+    Robot.m_turret.setSpeed(RobotContainer.getRightX());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_turret.stopTurret();
+    Robot.m_turret.stopTurret();
   }
 
   // Returns true when the command should end.
