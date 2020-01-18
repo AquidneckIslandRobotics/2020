@@ -26,7 +26,7 @@ import com.revrobotics.ColorSensorV3;
 public class Robot extends TimedRobot {
   private final I2C.Port i2cPort = I2C.Port.kOnboard; 
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort); 
-  public static Turret m_turret = new Turret();
+  public Turret m_turret = new Turret();
 
   private Command m_autonomousCommand;
 
