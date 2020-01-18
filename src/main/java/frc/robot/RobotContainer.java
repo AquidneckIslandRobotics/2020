@@ -81,8 +81,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     driverA.whileHeld(new TurretTarget());
-    driverX.whenPressed(new LightsOn());
-    driverB.whenPressed(new LightsOff());
+  
   }
 
   /**

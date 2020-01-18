@@ -8,50 +8,32 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import edu.wpi.first.wpilibj.XboxController;
 
-public class TurretTurn extends CommandBase {
-  //private XboxController m_joystick;
-  //private Turret m_turret;
-  //private double targetPositionRotations;
-
+public class ResetTurret extends CommandBase {
   /**
-   * Creates a new TurretTurn.
+   * Creates a new ResetTurret.
    */
-  public TurretTurn(/*XboxController joystick, Turret turret*/) {
+  public ResetTurret() {
     addRequirements(Robot.m_turret);
     // Use addRequirements() here to declare subsystem dependencies.
-    /*m_joystick = joystick;
-    m_turret = turret;
-    addRequirements(turret);*/
-
-    //double targetPositionRotations;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    Robot.m_turret.resetTurret();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // targetPositionRotations = leftYstick * 4096
-    // turretServo.set(ControlMode.Positon, targetPositionRotations);
-    Robot.m_turret.setSpeed(RobotContainer.getRightX());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.m_turret.stopTurret();
   }
 
   // Returns true when the command should end.
