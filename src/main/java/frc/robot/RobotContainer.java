@@ -8,10 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.LightsOff;
+import frc.robot.commands.LightsOn;
+import frc.robot.commands.TurretTarget;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -43,6 +47,9 @@ public class RobotContainer {
   
 
   Button button = new JoystickButton(drivingJoystick1, 6);
+  Button driverA = new JoystickButton(drivingJoystick1, 1);
+  Button driverB = new JoystickButton(drivingJoystick1, 2);
+  Button driverX = new JoystickButton(drivingJoystick1, 3);
 
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 
@@ -73,7 +80,9 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    driverA.whileHeld(new TurretTarget());
+    driverX.whenPressed(new LightsOn());
+    driverB.whenPressed(new LightsOff());
   }
 
   /**

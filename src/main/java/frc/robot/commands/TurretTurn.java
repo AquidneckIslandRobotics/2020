@@ -17,14 +17,15 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class TurretTurn extends CommandBase {
-  private XboxController m_joystick;
-  private Turret m_turret;
-  private double targetPositionRotations;
+  //private XboxController m_joystick;
+  //private Turret m_turret;
+  //private double targetPositionRotations;
 
   /**
    * Creates a new TurretTurn.
    */
   public TurretTurn(/*XboxController joystick, Turret turret*/) {
+    addRequirements(Robot.m_turret);
     // Use addRequirements() here to declare subsystem dependencies.
     /*m_joystick = joystick;
     m_turret = turret;
@@ -36,7 +37,6 @@ public class TurretTurn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    addRequirements(Robot.m_turret);
     /*m_turret.turretServo.configFactoryDefault();
     m_turret.turretServo.configSelectedFeedbackSensor
     (FeedbackDevice.CTRE_MagEncoder_Relative, 
@@ -69,13 +69,13 @@ public class TurretTurn extends CommandBase {
   public void execute() {
     // targetPositionRotations = leftYstick * 4096
     // turretServo.set(ControlMode.Positon, targetPositionRotations);
-    m_turret.setSpeed(RobotContainer.getRightX());
+    Robot.m_turret.setSpeed(RobotContainer.getRightX());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_turret.stopTurret();
+    Robot.m_turret.stopTurret();
   }
 
   // Returns true when the command should end.
