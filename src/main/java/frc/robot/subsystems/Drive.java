@@ -7,11 +7,11 @@
 
 package frc.robot.subsystems;
 
-
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
 public class Drive extends SubsystemBase {
   public WPI_TalonSRX leftLeader = new WPI_TalonSRX(Constants.LeftLeader);
@@ -21,6 +21,7 @@ public class Drive extends SubsystemBase {
   public WPI_TalonSRX rightFollower1 = new WPI_TalonSRX(Constants.RightFollower1);
   public WPI_TalonSRX rightFollower2 = new WPI_TalonSRX(Constants.RightFollower2);
   DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
+  private PigeonIMU pigeonsensor = new PigeonIMU(1);
   /**
    * Creates a new Drive.
    */
