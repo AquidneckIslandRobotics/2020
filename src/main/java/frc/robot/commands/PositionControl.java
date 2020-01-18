@@ -8,22 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.ColorSensor;
 
-public class ResetTurret extends CommandBase {
+public class PositionControl extends CommandBase {
   /**
-   * Creates a new ResetTurret.
+   * Creates a new PositionControl.
    */
-  public ResetTurret() {
-    addRequirements(Robot.m_turret);
+  public PositionControl(ColorSensor colorSystem) {
+    
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //Robot.m_turret.resetTurret();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

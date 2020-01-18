@@ -15,12 +15,14 @@ import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.LightsOff;
 import frc.robot.commands.LightsOn;
+import frc.robot.commands.PositionControl;
 import frc.robot.commands.TurretTarget;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drive;
 
 /**
@@ -31,7 +33,8 @@ import frc.robot.subsystems.Drive;
  */
 public class RobotContainer {
 
-  public static XboxController drivingJoystick1 = new XboxController(1);
+  private static final Command PositionControl = null;
+public static XboxController drivingJoystick1 = new XboxController(1);
 
 
   public static double getRightX() {
@@ -58,6 +61,7 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   public final Drive m_drive = new Drive();
+  public final ColorSensor m_colorsensor = new ColorSensor();
 
 
   /**
@@ -69,8 +73,6 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
-     
-    
   }
 
   /**
@@ -81,7 +83,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     driverA.whileHeld(new TurretTarget());
-  
+    driverB.whileHeld(new PositionControl(m_colorsensor));
   }
 
   /**

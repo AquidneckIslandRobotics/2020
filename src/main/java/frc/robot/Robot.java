@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.TurretTurn;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; 
@@ -24,8 +25,6 @@ import com.revrobotics.ColorSensorV3;
  * project.
  */
 public class Robot extends TimedRobot {
-  private final I2C.Port i2cPort = I2C.Port.kOnboard; 
-  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort); 
   public static Turret m_turret = new Turret();
 
   private Command m_autonomousCommand;
@@ -58,31 +57,6 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    CommandScheduler.getInstance().run();
-    Color detectedColor = m_colorSensor.getColor(); 
-    double IR = m_colorSensor.getIR(); 
-     SmartDashboard.putNumber("Red", detectedColor.red); 
-   SmartDashboard.putNumber("Green", detectedColor.green);  
-   SmartDashboard.putNumber("Blue", detectedColor.blue);  
-   SmartDashboard.putNumber("IR", IR); 
-   SmartDashboard.putString("Color", colorDetector(detectedColor));
-   
-   SmartDashboard.putNumber("Right X", RobotContainer.getRightX());
-   int proximity = m_colorSensor.getProximity(); 
-   SmartDashboard.putNumber("Proximity", proximity); 
-   }
-   public String colorDetector(Color detectedColor){
-     if(detectedColor.blue > .35){ 
-     return "Blue"; 
-     }else if(detectedColor.green > .5 && detectedColor.red < .200){
-       return "Green";
-     }else if(detectedColor.red > .47 && detectedColor.green > .3){
-       return "Red";
-     }else if(detectedColor.green > .53 && detectedColor.red > .29){
-       return "Yellow";
-     }else{
-       return "Unkown";
-     }
   }
 
   /**

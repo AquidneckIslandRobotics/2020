@@ -8,8 +8,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -20,20 +23,24 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.TurretTurn;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.controller.PIDController;
 
 
 public class Turret extends SubsystemBase {
-  public static TalonSRX turretServo = new TalonSRX(Constants.TurretServo);
+  public static WPI_TalonSRX turretServo = new WPI_TalonSRX(Constants.TurretServo);
 
   public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   public NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
+  public Encoder rightEncoder = new Encoder(Constants.EncoderRA,Constants.EncoderRB);
+  public PIDController rPIDDrivingController = new PIDController(0.078, 0, 0);
   /**
    * Creates a new Turret.
    */
   public Turret() {
     turretServo.setNeutralMode(NeutralMode.Brake);
+    turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
   }
 
   public double getLimelightX() {
@@ -49,8 +56,6 @@ public class Turret extends SubsystemBase {
   }
 
 
-  public static Encoder turretEncoder = new Encoder()
-
   @Override
   public void periodic() {
     double x = tx.getDouble(0.0);
@@ -59,6 +64,7 @@ public class Turret extends SubsystemBase {
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightX", y);
     SmartDashboard.putNumber("LimelightArea", area);
+    //SmartDashboard.putNumber("Turret Encoder", )
     // This method will be called once per scheduler run
   }
 
