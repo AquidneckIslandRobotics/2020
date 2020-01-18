@@ -13,14 +13,16 @@ import frc.robot.subsystems.Turret;
 import frc.robot.commands.TurretTurn; 
 
 public class TurretTarget extends CommandBase {
+  private Turret m_turret;
   public double initialTurretEncoderPos; 
   public double distanceInClicksTurret; 
 
   /**
    * Creates a new TurretTarget.
    */
-  public TurretTarget(double distanceInClicksTurret) {
-   addRequirements(Robot.m_turret); 
+  public TurretTarget(Turret turret, double distanceInClicksTurret) {
+   addRequirements(turret); 
+   m_turret = turret;
      distanceInClicksTurret = 155; //do we need this to get it to spin?
      
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,7 +31,7 @@ public class TurretTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    initialTurretEncoderPos
+    //initialTurretEncoderPos
   }
 
   // Called every time the scheduler runs while the command is scheduled.

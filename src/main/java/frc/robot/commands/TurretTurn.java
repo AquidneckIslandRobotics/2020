@@ -8,7 +8,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Turret; 
+import frc.robot.Constants;
+import frc.robot.subsystems.Turret;
+
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
 import edu.wpi.first.wpilibj.XboxController;
 
 public class TurretTurn extends CommandBase {
@@ -33,30 +37,30 @@ public class TurretTurn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    turretServo.configFactoryDefault(); 
-    turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 
-    Constants.kPIDLoopIdx, 
-    Constants.kTimeoutMs); 
+    // turretServo.configFactoryDefault(); 
+    // turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 
+    // Constants.kPIDLoopIdx, 
+    // Constants.kTimeoutMs); 
 
-turretServo.setSensorPhase(Constants.kSensorPhase); 
-turretServo.setInverted(Constants.kMotorInvert); 
-turretServo.configNominalOutputForward(0, Constants.kTimeoutMs); 
-turretServo.configNominalOutputReverse(0, Constants.kTimeoutMs); 
-turretServo.configPeakOutputForward(1, Constants.kTimeoutMs); 
-turretServo.configPeakOutputReverse(-1, COnstants.kTimeoutMs); 
+    // turretServo.setSensorPhase(Constants.kSensorPhase); 
+    // turretServo.setInverted(Constants.kMotorInvert); 
+    // turretServo.configNominalOutputForward(0, Constants.kTimeoutMs); 
+    // turretServo.configNominalOutputReverse(0, Constants.kTimeoutMs); 
+    // turretServo.configPeakOutputForward(1, Constants.kTimeoutMs); 
+    // turretServo.configPeakOutputReverse(-1, Constants.kTimeoutMs); 
 
-turretServo.configAllowableClosedloopError(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs); 
-turretServo.config_kF(Constants.kPIDLoopIdx, Constants.kF, Constants.kTimeoutMs); 
-turretServo.config_kP(Constants.kPIDLoopIdx, Constants.kP, Constants.kTimeoutMs); 
-turretServo.config_kI(Constants.kPIDLoopIdx, Constants.kI, Constants.kTimeoutMs); 
-turretServo.config_kD(Constants.kPIDLoopIdx, Constants.kD, Constants.kTimeoutMs); 
+    // turretServo.configAllowableClosedloopError(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs); 
+    // turretServo.config_kF(Constants.kPIDLoopIdx, Constants.kF, Constants.kTimeoutMs); 
+    // turretServo.config_kP(Constants.kPIDLoopIdx, Constants.kP, Constants.kTimeoutMs); 
+    // turretServo.config_kI(Constants.kPIDLoopIdx, Constants.kI, Constants.kTimeoutMs); 
+    // turretServo.config_kD(Constants.kPIDLoopIdx, Constants.kD, Constants.kTimeoutMs); 
 
-int absolutePosition = turretServo.getSensorCollection().getPulseWidthPosition();
-absolutePosition &= 0xFFF; 
-if (Constants.kSensorPhase) { absolutePosition *= -1; }
-if (Constants.kMotorInvert) { absolutePosition *= -1; }
+    // int absolutePosition = turretServo.getSensorCollection().getPulseWidthPosition();
+    // absolutePosition &= 0xFFF; 
+    // if (Constants.kSensorPhase) { absolutePosition *= -1; }
+    // if (Constants.kMotorInvert) { absolutePosition *= -1; }
 
-turretServo.setSelectedSensorPosition(absolutePosition, Constants.kPIDLoopIdx, Constants.kTimeoutMs); 
+    // turretServo.setSelectedSensorPosition(absolutePosition, Constants.kPIDLoopIdx, Constants.kTimeoutMs); 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -68,7 +72,7 @@ turretServo.setSelectedSensorPosition(absolutePosition, Constants.kPIDLoopIdx, C
    
     //targetPositionRotations = leftYstick * 4096; 
      //turretServo.set(ControlMode.Position, targetPositionRotations); 
-    }
+    //}
     
 
     //m_subsystem.curvatureDrive(m_Joystick.getY(GenericHID.Hand.kLeft),
