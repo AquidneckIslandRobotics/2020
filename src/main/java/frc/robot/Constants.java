@@ -32,9 +32,11 @@ public final class Constants {
 	public static int kTimeoutMs = 0;
 	public static int kPIDLoopIdx = 0;
     public static boolean kMotorInvert = false;
-	public static double kF = 0;
-	public static double kP = 0;
-	public static double kI = 0;
-	public static double kD = 0;
+    
+    //Encoders
+    public static final int EncoderLA = 0;
+    public static final int EncoderLB = 1;  
 }
+
+
 
