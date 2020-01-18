@@ -8,12 +8,25 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Constants;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Turret;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turnto extends CommandBase {
+  DifferentialDrive diffDrive;
   /**
    * Creates a new Turnto.
    */
-  public Turnto() {
+  public Turnto(Drive driveSystem, Turret turret) {
+    diffDrive = new DifferentialDrive(driveSystem.leftLeader, driveSystem.rightLeader);
+
+    double speed = 0.5;
+    double rotation = 0.5;
+    boolean quickturn = true;
+    diffDrive.curvatureDrive(speed, rotation, quickturn);
     
     // Use addRequirements() here to declare subsystem dependencies.
   }

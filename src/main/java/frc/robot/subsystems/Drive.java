@@ -14,13 +14,13 @@ import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Drive extends SubsystemBase {
-  WPI_TalonSRX leftLeader = new WPI_TalonSRX(Constants.LeftLeader);
-    WPI_TalonSRX leftFollower1 = new WPI_TalonSRX(Constants.LeftFollower1);
-    WPI_TalonSRX leftFollower2 = new WPI_TalonSRX(Constants.LeftFollower2);
-    WPI_TalonSRX rightLeader = new WPI_TalonSRX(Constants.RightLeader);
-    WPI_TalonSRX rightFollower1 = new WPI_TalonSRX(Constants.RightFollower1);
-    WPI_TalonSRX rightFollower2 = new WPI_TalonSRX(Constants.RightFollower2);
-    DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
+  public WPI_TalonSRX leftLeader = new WPI_TalonSRX(Constants.LeftLeader);
+  public WPI_TalonSRX leftFollower1 = new WPI_TalonSRX(Constants.LeftFollower1);
+  public WPI_TalonSRX leftFollower2 = new WPI_TalonSRX(Constants.LeftFollower2);
+  public WPI_TalonSRX rightLeader = new WPI_TalonSRX(Constants.RightLeader);
+  public WPI_TalonSRX rightFollower1 = new WPI_TalonSRX(Constants.RightFollower1);
+  public WPI_TalonSRX rightFollower2 = new WPI_TalonSRX(Constants.RightFollower2);
+  DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
   /**
    * Creates a new Drive.
    */
