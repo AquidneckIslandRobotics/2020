@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.subsystems.Drive;
-
+import frc.robot.commands.TurretTarget;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -43,6 +43,7 @@ public class RobotContainer {
   
 
   Button button = new JoystickButton(drivingJoystick1, 6);
+  Button driverA = new JoystickButton(drivingJoystick1, 1); 
 
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 
@@ -62,7 +63,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
-     
+    driverA.whileHeld(new TurretTarget()); 
     
   }
 
