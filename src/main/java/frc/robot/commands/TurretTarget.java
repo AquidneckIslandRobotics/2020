@@ -7,38 +7,34 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Elevator;
+import frc.robot.Robot; 
+import frc.robot.subsystems.Turret; 
+import frc.robot.commands.TurretTurn; 
 
+public class TurretTarget extends CommandBase {
+  public double initialTurretEncoderPos; 
+  public double distanceInClicksTurret; 
 
-public class ElevatorDrive extends CommandBase {
-  private Elevator m_elevator;
-  private XboxController m_joystick;
   /**
-   * Creates a new ElevatorDrive.
+   * Creates a new TurretTarget.
    */
-  public ElevatorDrive(Elevator elevator, XboxController joystick) {
-    m_elevator = elevator;
-    m_joystick = joystick;
-    addRequirements(elevator);
-
-
+  public TurretTarget(double distanceInClicksTurret) {
+   addRequirements(Robot.m_turret); 
+     distanceInClicksTurret = 155; //do we need this to get it to spin?
+     
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    initialTurretEncoderPos
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  //dad is actually dpad.
   @Override
   public void execute() {
-    int dad;
-    dad = m_joystick.getPOV();
   }
 
   // Called once the command ends or is interrupted.
