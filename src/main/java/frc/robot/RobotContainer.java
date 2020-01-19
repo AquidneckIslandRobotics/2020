@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DefaultDrive;
+import frc.robot.commands.MotionMagic;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -24,13 +25,16 @@ import frc.robot.subsystems.Drive;
 public class RobotContainer {
 
   // Robot joystick setup
-  public XboxController drivingJoystick1 = new XboxController(1);
+  private XboxController drivingJoystick1 = new XboxController(1);
 
   // Robot Button definitions
-  Button button = new JoystickButton(drivingJoystick1, 6);
+  private Button button = new JoystickButton(drivingJoystick1, 6);
 
   // The robot's subsystems and commands are defined here...
-  public final Drive m_drive = new Drive();
+  private final Drive m_drive = new Drive();
+
+  // Define commands
+  private MotionMagic c_MotionMagic = new MotionMagic(m_drive, 10);
 
 
 
@@ -64,7 +68,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // TODO Need to setup the auto command
-    return null;
+    // Return the auto command to run
+    return c_MotionMagic;
   }
 }
