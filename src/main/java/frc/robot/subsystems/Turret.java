@@ -33,6 +33,8 @@ public class Turret extends SubsystemBase {
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
  
+  public Encoder turretEncoder = new Encoder(Constants.TurretEncoder, 0); //why should it be set to 0, is that bc where it matches for the Constants?
+
 
   /**
    * Creates a new Turret.
@@ -54,6 +56,13 @@ public class Turret extends SubsystemBase {
     table.getEntry("ledMode").setNumber(1);
   }
   
+  public double getTurretEncoder() {
+    return turretEncoder.get(); 
+  }
+
+  public void resetEncoders() {
+    turretEncoder.reset(); 
+  }
  
  /* public void resetTurret() {
 
