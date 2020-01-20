@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.DefaultDrive;
+import frc.robot.commands.DriveTo;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.LightsOff;
 import frc.robot.commands.LightsOn;
@@ -54,6 +55,7 @@ public class RobotContainer {
 
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 
+  Button button1 = new JoystickButton(drivingJoystick1, 3);
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
@@ -73,6 +75,10 @@ public class RobotContainer {
     m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     driverA.whileHeld(new TurretTarget()); 
     
+    //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+    m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
+    button1.whenPressed(new DriveTo(m_drive, 8));
+     
     
   }
 
