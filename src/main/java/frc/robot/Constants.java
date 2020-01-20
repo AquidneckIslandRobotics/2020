@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.InvertType;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -25,10 +27,17 @@ public final class Constants {
     public static final int LeftElevator = 5;
     public static final int RightElevator = 10;
 
-    public static final int TurretServo = 6; //this is not the right position
-    public static final int kPIDLoopIdx = 0;
-    public static final int kTimeoutMs = 0; 
-    public static final int kSensorPhase = 0; 
-    public static final int kMotorInvert = 0;
+    public static final int TurretServo = 6;
+	public static boolean kSensorPhase = false;
+	public static int kTimeoutMs = 0;
+	public static int kPIDLoopIdx = 0;
+    public static boolean kMotorInvert = false;
+
+    public static final int ColorMotor = 12; 
+    
+    //Encoders
+    public static final int TurretEncoder = 0; 
 }
+
+
 
