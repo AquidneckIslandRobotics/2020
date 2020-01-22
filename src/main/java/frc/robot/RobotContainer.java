@@ -49,6 +49,7 @@ public class RobotContainer {
   
 
   Button button = new JoystickButton(drivingJoystick1, 6);
+  Button button1 = new JoystickButton(drivingJoystick1, 4);
   Button driverA = new JoystickButton(drivingJoystick1, 1);
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
@@ -61,7 +62,8 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   public final Drive m_drive = new Drive();
-  public final ColorSensor m_colorsensor = new ColorSensor(); 
+  //public final ColorSensor m_colorsensor = new ColorSensor(); 
+  public final DriveTo m_auto = new DriveTo(m_drive, -10);
 
 
   /**
@@ -72,6 +74,10 @@ public class RobotContainer {
     
     // Configure the button bindings
     configureButtonBindings();
+    //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+    //m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
+    button1.whenPressed(new DriveTo(m_drive, Constants.DRIVE_DISTANCE));
+     
     m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     driverA.whileHeld(new TurretTarget()); 
     

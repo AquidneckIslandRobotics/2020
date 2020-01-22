@@ -36,7 +36,9 @@ public class DriveTo extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-     m_clicks = m_distance * 195.66789; 
+    // m_clicks = m_distance * 195.66789; 
+    m_clicks = ((m_distance*12.0)/18.8)*4096.0;
+    m_drive.resetEncoder();
     
 
   }
@@ -45,7 +47,7 @@ public class DriveTo extends CommandBase {
   @Override
   public void execute() {
     m_drive.setPoint(m_clicks);
-    SmartDashboard.putNumber("clicks",m_clicks);
+    System.out.println("clicks" + m_clicks);
 
 
   }
