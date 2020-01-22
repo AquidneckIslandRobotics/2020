@@ -7,57 +7,51 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drive;
+import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.Turret;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import edu.wpi.first.wpilibj.XboxController;
 
-public class DriveTo extends CommandBase {
-  private Drive m_drive;
-  private double m_distance;
-  private double m_clicks;
-
+public class TurretTurn extends CommandBase {
+  //private XboxController m_joystick;
+  //private Turret m_turret;
+  //private double targetPositionRotations;
 
   /**
-   * Creates a new DriveTo.
+   * Creates a new TurretTurn.
    */
-  public DriveTo(Drive drive, double distance ) {
-    m_drive = drive;
-    m_distance = distance;
-    
-    
-    addRequirements(drive);
-
+  public TurretTurn(/*XboxController joystick, Turret turret*/) {
+    addRequirements(Robot.m_turret);
     // Use addRequirements() here to declare subsystem dependencies.
+    /*m_joystick = joystick;
+    m_turret = turret;
+    addRequirements(turret);*/
+
+    //double targetPositionRotations;
+    addRequirements(Robot.m_turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // m_clicks = m_distance * 195.66789; 
-    m_clicks = ((m_distance*12.0)/18.8)*4096.0;
-    m_drive.resetEncoder();
-    
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.setPoint(m_clicks);
-    System.out.println("clicks" + m_clicks);
-
-
+    // targetPositionRotations = leftYstick * 4096
+    // turretServo.set(ControlMode.Positon, targetPositionRotations);
+    Robot.m_turret.setSpeed(RobotContainer.getRightX());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drive.stop();
-
+    Robot.m_turret.stopTurret();
   }
 
   // Returns true when the command should end.

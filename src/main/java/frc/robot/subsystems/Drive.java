@@ -14,6 +14,8 @@ import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
+import com.ctre.phoenix.motorcontrol.SensorTerm;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -37,6 +39,9 @@ public class Drive extends SubsystemBase {
    rightFollower2.configFactoryDefault();
    rightFollower1.follow(rightLeader);
    rightFollower2.follow(rightLeader);
+   leftLeader.setInverted(true);
+   leftFollower1.setInverted(true);
+   leftFollower2.setInverted(true);
 
    double speed = 0.5;
    double rotation = 0.5;
@@ -48,24 +53,32 @@ leftLeader.configFactoryDefault();
    leftLeader.follow(rightLeader);
    rightLeader.configFactoryDefault();
    
-   rightLeader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
+   leftLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.PID_PRIMARY, Constants.kTimeoutMs);
+   rightLeader.configRemoteFeedbackFilter(leftLeader.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, Constants.REMOTE_0, Constants.kTimeoutMs);
+   rightLeader.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor0, Constants.kTimeoutMs);
+   rightLeader.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Absolute, Constants.kTimeoutMs);
+    rightLeader.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, Constants.PID_PRIMARY, Constants.kTimeoutMs);
+   rightLeader.configSelectedFeedbackCoefficient(0.5, Constants.PID_PRIMARY, Constants.kTimeoutMs); 
    rightLeader.configNeutralDeadband(.001, 30);
-   rightLeader.setSensorPhase(true);
+   leftLeader.setInverted(false);
+   leftLeader.setSensorPhase(true);
+   rightLeader.setSensorPhase(false);
    rightLeader.setInverted(false);
    rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 30);
-   rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 30);
+   rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 10, 30);
+
    rightLeader.configNominalOutputForward(0, 30);
    rightLeader.configNominalOutputReverse(0, 30);
-   rightLeader.configPeakOutputForward(0, 30);
-   rightLeader.configPeakOutputReverse(0, 30);
+   rightLeader.configPeakOutputForward(1, 30);
+   rightLeader.configPeakOutputReverse(-1, 30);
 
    rightLeader.selectProfileSlot(0, 0);
-   rightLeader.config_kF(0, 0, 30);
-   rightLeader.config_kP(0, 0.1, 30);
-   rightLeader.config_kI(0, 0, 30);
-   rightLeader.config_kD(0, 0, 30);
-   rightLeader.configMotionCruiseVelocity(15000, 30);
-   rightLeader.configMotionAcceleration(6000, 30);
+   rightLeader.config_kF(0, 0.1, 30);
+   rightLeader.config_kP(0, .4, 30);
+   rightLeader.config_kI(0, .001, 30);
+   rightLeader.config_kD(0, 4, 30);
+   rightLeader.configMotionCruiseVelocity(3000, 30);
+   rightLeader.configMotionAcceleration(937, 30);
 
    rightLeader.setSelectedSensorPosition(0, 0, 30);
   }
@@ -73,7 +86,7 @@ leftLeader.configFactoryDefault();
     //diffDrive.curvatureDrive(speed, rotation, quickTurn);
   }
   public void setPoint(double rotation){
-    rightLeader.set(ControlMode.MotionMagic, rotation*100);
+    rightLeader.set(ControlMode.MotionMagic, rotation);
     SmartDashboard.putNumber("error", rightLeader.getClosedLoopError(0));
     SmartDashboard.putNumber("Output", rightLeader.getMotorOutputPercent());
 
@@ -90,8 +103,12 @@ leftLeader.configFactoryDefault();
   public void periodic() {
     SmartDashboard.putString("Mode",rightLeader.getControlMode().toString());
     SmartDashboard.putData("Drive", this);
+    System.out.println("accel"+rightLeader.getSelectedSensorVelocity());
     //double x = SmartDashboard.getNumber("SetPoing", 0);
     //rightLeader.set(ControlMode.MotionMagic, 15000);
     // This method will be called once per scheduler run
+  }
+  public void resetEncoder(){
+    rightLeader.setSelectedSensorPosition(0);
   }
 }

@@ -34,7 +34,6 @@ public class Elevator extends SubsystemBase {
     rightElevator.configNominalOutputReverse(0,30);
     rightElevator.configPeakOutputForward(0,30);
     rightElevator.configPeakOutputReverse(0,30);
-
     rightElevator.selectProfileSlot(0,0);
     rightElevator.config_kF(0,0,30);
     rightElevator.config_kP(0, .00045,30);
@@ -42,10 +41,7 @@ public class Elevator extends SubsystemBase {
     rightElevator.config_kD(0, .00045,30);
     rightElevator.configMotionCruiseVelocity(15000,30);
     rightElevator.configMotionAcceleration(6000, 30);
-
     rightElevator.setSelectedSensorPosition(0, 0, 30);
-
-
   }
 
   @Override

@@ -7,56 +7,46 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drive;
+import frc.robot.Robot;
+import frc.robot.subsystems.Turret;
+import frc.robot.commands.TurretTurn;
 
-public class DriveTo extends CommandBase {
-  private Drive m_drive;
-  private double m_distance;
-  private double m_clicks;
 
+public class TurretTarget extends CommandBase {
+  public double initialTurretEncoderPos;
+ public double distanceInClicksTurret;
 
   /**
-   * Creates a new DriveTo.
+   * Creates a new TurretTarget.
    */
-  public DriveTo(Drive drive, double distance ) {
-    m_drive = drive;
-    m_distance = distance;
-    
-    
-    addRequirements(drive);
-
+  public TurretTarget(/*double distanceInClicksTurret*/) {
+   // addRequirements(Robot.m_turret);
+    distanceInClicksTurret = 155; // Do we need this to turn?
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.m_turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // m_clicks = m_distance * 195.66789; 
-    m_clicks = ((m_distance*12.0)/18.8)*4096.0;
-    m_drive.resetEncoder();
-    
-
+    Robot.m_turret.lightsOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.setPoint(m_clicks);
-    System.out.println("clicks" + m_clicks);
-
-
+    double xval = Robot.m_turret.getLimelightX();
+    double speed = xval * -0.035;
+    Robot.m_turret.setSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drive.stop();
+    Robot.m_turret.stopTurret();
+    Robot.m_turret.lightsOff();
 
   }
 

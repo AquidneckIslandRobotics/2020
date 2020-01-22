@@ -37,8 +37,8 @@ public class ElevatorDrive extends CommandBase {
   //dad is actually dpad.
   @Override
   public void execute() {
-    int dad;
-    dad = m_joystick.getPOV();
+    int dad; //dad means DPAD on the controller 
+    dad = m_joystick.getPOV(); 
   }
 
   // Called once the command ends or is interrupted.
