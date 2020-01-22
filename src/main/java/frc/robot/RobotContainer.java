@@ -15,14 +15,15 @@ import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.LightsOff;
 import frc.robot.commands.LightsOn;
-import frc.robot.commands.PositionControl;
+import frc.robot.commands.RunTurret;
 import frc.robot.commands.TurretTarget;
+import frc.robot.commands.TurretTurn;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
-import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drive;
 
 /**
@@ -33,7 +34,6 @@ import frc.robot.subsystems.Drive;
  */
 public class RobotContainer {
 
-  private static final Command PositionControl = null;
 public static XboxController drivingJoystick1 = new XboxController(1);
 
 
@@ -53,6 +53,11 @@ public static XboxController drivingJoystick1 = new XboxController(1);
   Button driverA = new JoystickButton(drivingJoystick1, 1);
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
+  static Button driverY = new JoystickButton(drivingJoystick1, 4);
+
+  public static boolean getY() {
+    return driverY.get();
+  }
 
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 
@@ -61,7 +66,8 @@ public static XboxController drivingJoystick1 = new XboxController(1);
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   public final Drive m_drive = new Drive();
-  public final ColorSensor m_colorsensor = new ColorSensor();
+  //public final ColorSensor m_colorsensor = new ColorSensor();
+  public static Turret m_turret = new Turret();
 
 
   /**
@@ -73,6 +79,7 @@ public static XboxController drivingJoystick1 = new XboxController(1);
     // Configure the button bindings
     configureButtonBindings();
     m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+    m_turret.setDefaultCommand(new TurretTurn());
   }
 
   /**
@@ -83,7 +90,9 @@ public static XboxController drivingJoystick1 = new XboxController(1);
    */
   private void configureButtonBindings() {
     driverA.whileHeld(new TurretTarget());
-    driverB.whileHeld(new PositionControl(m_colorsensor));
+    driverX.whenPressed(new LightsOn());
+    driverB.whenPressed(new LightsOff());
+    driverY.whileHeld(new RunTurret());
   }
 
   /**

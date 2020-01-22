@@ -25,7 +25,7 @@ public class TurretTurn extends CommandBase {
    * Creates a new TurretTurn.
    */
   public TurretTurn(/*XboxController joystick, Turret turret*/) {
-    addRequirements(Robot.m_turret);
+    addRequirements(RobotContainer.m_turret);
     // Use addRequirements() here to declare subsystem dependencies.
     /*m_joystick = joystick;
     m_turret = turret;
@@ -45,13 +45,13 @@ public class TurretTurn extends CommandBase {
   public void execute() {
     // targetPositionRotations = leftYstick * 4096
     // turretServo.set(ControlMode.Positon, targetPositionRotations);
-    Robot.m_turret.setSpeed(RobotContainer.getRightX());
+    RobotContainer.m_turret.setSpeed(-RobotContainer.getRightX());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.m_turret.stopTurret();
+    RobotContainer.m_turret.stopTurret();
   }
 
   // Returns true when the command should end.

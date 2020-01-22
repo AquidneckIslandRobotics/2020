@@ -7,31 +7,36 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ColorSensor;
+import frc.robot.RobotContainer;
 
-public class PositionControl extends CommandBase {
+public class RunTurret extends CommandBase {
   /**
-   * Creates a new PositionControl.
+   * Creates a new RunTurret.
    */
-  public PositionControl(ColorSensor colorSystem) {
-    
+  public RunTurret() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(RobotContainer.m_turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    SmartDashboard.putBoolean("yeet", true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.m_turret.setSpeed(0.78);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.m_turret.stopTurret();
+    SmartDashboard.putBoolean("yeet", false);
   }
 
   // Returns true when the command should end.

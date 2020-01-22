@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret;
 
 public class ResetTurret extends CommandBase {
@@ -16,7 +17,7 @@ public class ResetTurret extends CommandBase {
    * Creates a new ResetTurret.
    */
   public ResetTurret() {
-    addRequirements(Robot.m_turret);
+    addRequirements(RobotContainer.m_turret);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

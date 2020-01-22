@@ -10,34 +10,24 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Drive extends SubsystemBase {
-  WPI_TalonSRX leftLeader = new WPI_TalonSRX(Constants.LeftLeader);
-    WPI_TalonSRX leftFollower1 = new WPI_TalonSRX(Constants.LeftFollower1);
-    WPI_TalonSRX leftFollower2 = new WPI_TalonSRX(Constants.LeftFollower2);
-    WPI_TalonSRX rightLeader = new WPI_TalonSRX(Constants.RightLeader);
-    WPI_TalonSRX rightFollower1 = new WPI_TalonSRX(Constants.RightFollower1);
-    WPI_TalonSRX rightFollower2 = new WPI_TalonSRX(Constants.RightFollower2);
-    DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
+  TalonFX leftLeader = new TalonFX(Constants.LeftLeader);
+  TalonFX leftFollower = new TalonFX(Constants.LeftFollower);
+  TalonFX rightLeader = new TalonFX(Constants.RightLeader);
+  TalonFX rightFollower = new TalonFX(Constants.RightFollower);
   /**
    * Creates a new Drive.
    */
   public Drive() {
-   leftFollower1.follow(leftLeader);
-   leftFollower2.follow(leftLeader);
-   rightFollower1.follow(rightLeader);
-   rightFollower2.follow(rightLeader);
-
-   double speed = 0.5;
-   double rotation = 0.5;
-   boolean quickTurn = true;
-   diffDrive.curvatureDrive(speed, rotation, quickTurn);
-
-
+   leftFollower.follow(leftLeader);
+   rightFollower.follow(rightLeader);
   }
+
   public void curvatureDrive(double speed, double rotation, boolean quickTurn){
-    diffDrive.curvatureDrive(speed, rotation, quickTurn);
   }
 
   @Override

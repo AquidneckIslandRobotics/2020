@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 public class LightsOn extends CommandBase {
   /**
@@ -21,7 +22,7 @@ public class LightsOn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.m_turret.lightsOn();
+    RobotContainer.m_turret.lightsOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

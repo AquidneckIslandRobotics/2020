@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -23,11 +24,13 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.TurretTurn;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.controller.PIDController;
 
 
 public class Turret extends SubsystemBase {
-  public static WPI_TalonSRX turretServo = new WPI_TalonSRX(Constants.TurretServo);
+  //public static WPI_TalonSRX turretServo = new WPI_TalonSRX(Constants.TurretServo);
+  private CANSparkMax turretServo = new CANSparkMax(Constants.TurretServo, CANSparkMax.MotorType.kBrushless);
 
   public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   public NetworkTableEntry tx = table.getEntry("tx");
@@ -39,8 +42,9 @@ public class Turret extends SubsystemBase {
    * Creates a new Turret.
    */
   public Turret() {
-    turretServo.setNeutralMode(NeutralMode.Brake);
-    turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+    // turretServo.setNeutralMode(NeutralMode.Brake);
+    // turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+    
   }
 
   public double getLimelightX() {
@@ -69,9 +73,9 @@ public class Turret extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-    turretServo.set(ControlMode.PercentOutput, speed);
+    turretServo.set(speed);
   }
   public void stopTurret(){
-    turretServo.set(ControlMode.PercentOutput, 0);
+    turretServo.stopMotor();
   }
 }

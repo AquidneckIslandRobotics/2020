@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret;
 import frc.robot.commands.TurretTurn;
 
@@ -25,28 +26,28 @@ public class TurretTarget extends CommandBase {
    // addRequirements(Robot.m_turret);
     distanceInClicksTurret = 155; // Do we need this to turn?
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.m_turret);
+    addRequirements(RobotContainer.m_turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.m_turret.lightsOn();
+    RobotContainer.m_turret.lightsOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xval = Robot.m_turret.getLimelightX();
-    double speed = xval * -0.035;
-    Robot.m_turret.setSpeed(speed);
+    double xval = RobotContainer.m_turret.getLimelightX();
+    double speed = xval * -0.15;
+    RobotContainer.m_turret.setSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.m_turret.stopTurret();
-    Robot.m_turret.lightsOff();
+    RobotContainer.m_turret.stopTurret();
+    RobotContainer.m_turret.lightsOff();
   }
 
   // Returns true when the command should end.

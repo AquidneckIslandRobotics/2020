@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.TurretTurn;
-import frc.robot.subsystems.ColorSensor;
+import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; 
@@ -25,7 +25,6 @@ import com.revrobotics.ColorSensorV3;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static Turret m_turret = new Turret();
 
   private Command m_autonomousCommand;
 
@@ -40,7 +39,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_turret.setDefaultCommand(new TurretTurn());
     //m_turret.lightsOff();
   }
 
@@ -57,6 +55,7 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+    CommandScheduler.getInstance().run();
   }
 
   /**
@@ -106,6 +105,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    SmartDashboard.putNumber("RightX", RobotContainer.getRightX());
+    SmartDashboard.putBoolean("driverY", RobotContainer.getY());
   }
 
   @Override
