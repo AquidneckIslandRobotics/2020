@@ -24,6 +24,13 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.TurretTurn;
 import edu.wpi.first.wpilibj.Encoder; 
 import edu.wpi.first.wpilibj.Servo; 
+import com.revrobotics.CANAnalog; 
+import com.revrobotics.CANDigitalInput;
+import com.revrobotics.CANPIDController; 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.ControlType;  
+
 
 
 
@@ -34,6 +41,14 @@ public class Turret extends SubsystemBase {
   public NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
+
+  public CANSparkMax m_motor; 
+  public CANPIDController m_pidController; 
+
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput; 
+  public CANAnalog m_analogSensor; 
+
+  
  
   //public Encoder turretEncoder = new Encoder(Constants.TurretEncoder, 0); //why should it be set to 0, is that bc where it matches for the Constants?
 
@@ -42,6 +57,31 @@ public class Turret extends SubsystemBase {
    * Creates a new Turret.
    */
   public Turret() {
+
+    m_motor = new CANSparkMax(Constants.deviceID, MotorType.kBrushless); 
+    m_analogSensor = m_motor.getAnalog(CANAnalog.AnalogMode.kAbsolute);
+    m_motor.restoreFactoryDefaults(); 
+    m_pidController = m_motor.getPIDController(); 
+    m_pidController.setFeedbackDevice(m_analogSensor); 
+    
+    //PID Coefficients 
+    kP = 0.1; 
+    kI = 0.1;
+    kD = 0.1;
+    kIz = 0.1; 
+    kFF = 0.1; 
+    kMaxOutput = 1; 
+    kMinOutput = -1; 
+
+    m_pidController.setP(kP); 
+    m_pidController.setI(kI); 
+    m_pidController.setD(kD); 
+    m_pidController.setIZone(kIz); 
+    m_pidController.setFF(kFF); 
+    m_pidController.setOutputRange(kMinOutput, kMaxOutput); 
+
+    SmartDashboard.putNumber("Turret Rotations", 0); 
+
     turretServo.setNeutralMode(NeutralMode.Brake);
     turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
   }
@@ -72,6 +112,12 @@ public class Turret extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+    double rotations = SmartDashboard.getNumber("Turret Rotations", 0); 
+    m_pidController.setReference(rotations, ControlType.kPosition); 
+    SmartDashboard.putNumber("Turret Set Point", rotations); 
+    SmartDashboard.putNumber("Process Variable", m_analogSensor.getPosition()); 
+
     double x = tx.getDouble(0.0);
     double y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
