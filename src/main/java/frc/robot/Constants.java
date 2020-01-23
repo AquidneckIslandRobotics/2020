@@ -39,7 +39,9 @@ public final class Constants {
     public static final int TurretEncoder = 0;
     public static final double DRIVE_DISTANCE = -14;
 	public static final int PID_PRIMARY = 0;
-	public static final int REMOTE_0 = 0; 
+    public static final int REMOTE_0 = 0; 
+    
+    public static final int deviceID = 12; //this is where ever the sparkmax ID is   
 }
 
 
