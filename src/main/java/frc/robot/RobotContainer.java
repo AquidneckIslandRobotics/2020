@@ -53,6 +53,7 @@ public class RobotContainer {
   Button driverA = new JoystickButton(drivingJoystick1, 1);
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
+  Button driverRB = new JoystickButton(drivingJoystick1, 6); 
 
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 

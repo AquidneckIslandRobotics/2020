@@ -35,14 +35,16 @@ import com.revrobotics.ControlType;
 
 
 public class Turret extends SubsystemBase {
-  public static TalonSRX turretServo = new TalonSRX(Constants.TurretServo);
+ // public static TalonSRX turretServo = new TalonSRX(Constants.TurretServo);
+
+
   //public static Encoder turretEncoder = new Encoder(Constants.TurretEncoder); 
   public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   public NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
 
-  public CANSparkMax m_motor; 
+  public CANSparkMax turretServo; 
   public CANPIDController m_pidController; 
 
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput; 
@@ -58,10 +60,10 @@ public class Turret extends SubsystemBase {
    */
   public Turret() {
 
-    m_motor = new CANSparkMax(Constants.deviceID, MotorType.kBrushless); 
-    m_analogSensor = m_motor.getAnalog(CANAnalog.AnalogMode.kAbsolute);
-    m_motor.restoreFactoryDefaults(); 
-    m_pidController = m_motor.getPIDController(); 
+    turretServo = new CANSparkMax(Constants.deviceID, MotorType.kBrushless); 
+    m_analogSensor = turretServo.getAnalog(CANAnalog.AnalogMode.kAbsolute);
+    turretServo.restoreFactoryDefaults(); 
+    m_pidController = turretServo.getPIDController(); 
     m_pidController.setFeedbackDevice(m_analogSensor); 
     
     //PID Coefficients 
@@ -82,8 +84,9 @@ public class Turret extends SubsystemBase {
 
     SmartDashboard.putNumber("Turret Rotations", 0); 
 
-    turretServo.setNeutralMode(NeutralMode.Brake);
-    turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
+    //turretServo.setNeutralMode(NeutralMode.Brake);
+   // turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
+   //this won't work bc turret servo is a Neo 550
   }
 
   public double getLimelightX() {
@@ -128,10 +131,10 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setSpeed(double speed){
-    turretServo.set(ControlMode.PercentOutput, speed);
+ public void setSpeed(double speed){
+    turretServo.set(speed);
   }
   public void stopTurret(){
-    turretServo.set(ControlMode.PercentOutput, 0);
-  }
+    turretServo.set(0);
+  } 
 }
