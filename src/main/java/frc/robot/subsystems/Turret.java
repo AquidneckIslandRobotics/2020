@@ -11,6 +11,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
@@ -22,7 +24,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.TurretTurn;
-import edu.wpi.first.wpilibj.Encoder; 
+import edu.wpi.first.wpilibj.AnalogEncoder;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Servo; 
 import com.revrobotics.CANAnalog; 
 import com.revrobotics.CANDigitalInput;
@@ -44,11 +48,16 @@ public class Turret extends SubsystemBase {
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
 
-  public CANSparkMax turretServo; 
+  //public CANSparkMax turretServo; 
+  public TalonSRX turretServo; 
+   
+
+
   public CANPIDController m_pidController; 
 
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput; 
   public CANAnalog m_analogSensor; 
+   
 
   
  
@@ -60,14 +69,18 @@ public class Turret extends SubsystemBase {
    */
   public Turret() {
 
-    turretServo = new CANSparkMax(Constants.deviceID, MotorType.kBrushless); 
+    /* turretServo = new CANSparkMax(Constants.deviceID, MotorType.kBrushless); 
     m_analogSensor = turretServo.getAnalog(CANAnalog.AnalogMode.kAbsolute);
     turretServo.restoreFactoryDefaults(); 
     m_pidController = turretServo.getPIDController(); 
     m_pidController.setFeedbackDevice(m_analogSensor); 
+    */ 
+    turretServo = new TalonSRX(Constants.talonsrxturret); 
     
+    m_analogSensor = turretServo.;
+
     //PID Coefficients 
-    kP = 0.1; 
+    kP = 0.9; 
     kI = 0.1;
     kD = 0.1;
     kIz = 0.1; 
@@ -119,7 +132,9 @@ public class Turret extends SubsystemBase {
     double rotations = SmartDashboard.getNumber("Turret Rotations", 0); 
     m_pidController.setReference(rotations, ControlType.kPosition); 
     SmartDashboard.putNumber("Turret Set Point", rotations); 
-    SmartDashboard.putNumber("Process Variable", m_analogSensor.getPosition()); 
+    SmartDashboard.putNumber("Process Variable Conversion", m_analogSensor.getPositionConversionFactor()); 
+    SmartDashboard.putNumber("Process Variable Get Pos only", m_analogSensor()); 
+
 
     double x = tx.getDouble(0.0);
     double y = ty.getDouble(0.0);

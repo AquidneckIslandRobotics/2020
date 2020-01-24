@@ -41,7 +41,8 @@ public final class Constants {
 	public static final int PID_PRIMARY = 0;
     public static final int REMOTE_0 = 0; 
     
-    public static final int deviceID = 12; //this is where ever the sparkmax ID is   
+    public static final int deviceID = 05; //this is where ever the sparkmax ID is   
+    public static final int talonsrxturret = 0; 
 }
 
 
