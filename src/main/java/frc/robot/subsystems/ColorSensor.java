@@ -33,7 +33,7 @@ public class ColorSensor extends SubsystemBase {
 
   @Override
   public void periodic() {
-    CommandScheduler.getInstance().run();
+    
     Color detectedColor = m_colorSensor.getColor(); 
     double IR = m_colorSensor.getIR(); 
      SmartDashboard.putNumber("Red", detectedColor.red); 
