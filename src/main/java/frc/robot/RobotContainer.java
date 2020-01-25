@@ -17,7 +17,9 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.LightsOff;
 import frc.robot.commands.LightsOn;
 import frc.robot.commands.TurretTarget;
+import frc.robot.commands.TurretTurn;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -33,6 +35,7 @@ import frc.robot.commands.TurretTarget;
  */
 public class RobotContainer {
 
+  public static XboxController manipulatorJoystick = new XboxController(0); 
   public static XboxController drivingJoystick1 = new XboxController(1);
 
 
@@ -46,6 +49,17 @@ public class RobotContainer {
     //Return adjusted value
     return rightX;
   }
+
+  public static double rightXm() {
+    //Get raw value from joystick
+    double rightXmm = manipulatorJoystick.getX(Hand.kRight);
+    //Check for deadzone
+    if (Math.abs(rightXmm) < 0.05) {
+      rightXmm = 0;
+    }
+    //Return adjusted value
+    return rightXmm;
+  }
   
 
   Button button = new JoystickButton(drivingJoystick1, 6);
@@ -55,6 +69,8 @@ public class RobotContainer {
   Button driverX = new JoystickButton(drivingJoystick1, 3);
   Button driverRB = new JoystickButton(drivingJoystick1, 6); 
 
+  Button manipulatorB = new JoystickButton(manipulatorJoystick, 2); 
+  Button manipulatorX = new JoystickButton(manipulatorJoystick, 3); 
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 
   // The robot's subsystems and commands are defined here...
@@ -64,6 +80,8 @@ public class RobotContainer {
   public final Drive m_drive = new Drive();
   //public final ColorSensor m_colorsensor = new ColorSensor(); 
   public final DriveTo m_auto = new DriveTo(m_drive, -10);
+
+  public final Turret m_turret = new Turret(); 
 
 
   /**
@@ -78,13 +96,17 @@ public class RobotContainer {
     //m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
     button1.whenPressed(new DriveTo(m_drive, Constants.DRIVE_DISTANCE));
      
-    m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+   // m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     driverA.whileHeld(new TurretTarget()); 
+
+    
     
     //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
-    m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
+   // m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
     button1.whenPressed(new DriveTo(m_drive, 8));
      
+   // m_turret.setDefaultCommand(new TurretTurn(m_turret));
+
     
   }
 
@@ -96,6 +118,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     driverA.whileHeld(new TurretTarget());
+
+    manipulatorB.whileHeld(new TurretTurn(m_turret, .5)); 
+    manipulatorX.whileHeld(new TurretTurn(m_turret, -.5)); 
    // driverX.whenPressed(new LightsOn());
     //driverX.whenReleased(new LightsOff()); these lines aren't needed bc the limelight already turns off after A is released
   }

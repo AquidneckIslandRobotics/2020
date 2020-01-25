@@ -39,6 +39,8 @@ import com.revrobotics.ControlType;
 
 
 public class Turret extends SubsystemBase {
+
+  //Faults _faults = new Faults(); 
  // public static TalonSRX turretServo = new TalonSRX(Constants.TurretServo);
 
 
@@ -53,12 +55,12 @@ public class Turret extends SubsystemBase {
    
 
 
-  public CANPIDController m_pidController; 
+  //public CANPIDController m_pidController; 
 
-  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput; 
-  public CANAnalog m_analogSensor; 
+  //public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput; 
+ // public CANAnalog m_analogSensor; 
    
-
+  
   
  
   //public Encoder turretEncoder = new Encoder(Constants.TurretEncoder, 0); //why should it be set to 0, is that bc where it matches for the Constants?
@@ -69,6 +71,7 @@ public class Turret extends SubsystemBase {
    */
   public Turret() {
 
+    
     /* turretServo = new CANSparkMax(Constants.deviceID, MotorType.kBrushless); 
     m_analogSensor = turretServo.getAnalog(CANAnalog.AnalogMode.kAbsolute);
     turretServo.restoreFactoryDefaults(); 
@@ -76,24 +79,27 @@ public class Turret extends SubsystemBase {
     m_pidController.setFeedbackDevice(m_analogSensor); 
     */ 
     turretServo = new TalonSRX(Constants.talonsrxturret); 
+    turretServo.setSensorPhase(false);
+    turretServo.setInverted(false);
+    turretServo.configSelectedFeedbackSensor(FeedbackDevice.Analog);
     
-    m_analogSensor = turretServo.;
+   // m_analogSensor = turretServo.;
 
     //PID Coefficients 
-    kP = 0.9; 
+   /* kP = 0.9; 
     kI = 0.1;
     kD = 0.1;
     kIz = 0.1; 
     kFF = 0.1; 
     kMaxOutput = 1; 
-    kMinOutput = -1; 
+    kMinOutput = -1; */ 
 
-    m_pidController.setP(kP); 
+   /* m_pidController.setP(kP); 
     m_pidController.setI(kI); 
     m_pidController.setD(kD); 
     m_pidController.setIZone(kIz); 
     m_pidController.setFF(kFF); 
-    m_pidController.setOutputRange(kMinOutput, kMaxOutput); 
+    m_pidController.setOutputRange(kMinOutput, kMaxOutput); */ 
 
     SmartDashboard.putNumber("Turret Rotations", 0); 
 
@@ -130,10 +136,14 @@ public class Turret extends SubsystemBase {
   public void periodic() {
 
     double rotations = SmartDashboard.getNumber("Turret Rotations", 0); 
-    m_pidController.setReference(rotations, ControlType.kPosition); 
+   // m_pidController.setReference(rotations, ControlType.kPosition); 
     SmartDashboard.putNumber("Turret Set Point", rotations); 
-    SmartDashboard.putNumber("Process Variable Conversion", m_analogSensor.getPositionConversionFactor()); 
-    SmartDashboard.putNumber("Process Variable Get Pos only", m_analogSensor()); 
+   // SmartDashboard.putNumber("Process Variable Conversion", m_analogSensor.getPositionConversionFactor()); 
+   //SmartDashboard.putNumber("Process Variable Get Pos only", m_analogSensor()); 
+  SmartDashboard.putNumber("Sesnor Velocity", turretServo.getSelectedSensorVelocity()); 
+    SmartDashboard.putNumber("Sensor Position", turretServo.getSelectedSensorPosition()); 
+    
+   
 
 
     double x = tx.getDouble(0.0);
@@ -147,9 +157,11 @@ public class Turret extends SubsystemBase {
   }
 
  public void setSpeed(double speed){
-    turretServo.set(speed);
+    turretServo.set(ControlMode.PercentOutput, speed);
+    //turretServo.getFaults(_faults); 
+  
   }
   public void stopTurret(){
-    turretServo.set(0);
+    turretServo.set(ControlMode.PercentOutput, 0);
   } 
 }

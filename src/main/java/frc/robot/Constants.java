@@ -36,13 +36,13 @@ public final class Constants {
     public static final int ColorMotor = 12; 
     
     //Encoders
-    public static final int TurretEncoder = 0;
+   // public static final int TurretEncoder = 0;
     public static final double DRIVE_DISTANCE = -14;
 	public static final int PID_PRIMARY = 0;
     public static final int REMOTE_0 = 0; 
     
-    public static final int deviceID = 05; //this is where ever the sparkmax ID is   
-    public static final int talonsrxturret = 0; 
+    //public static final int deviceID = 05; //this is where ever the sparkmax ID is   
+    public static final int talonsrxturret = 7; 
 }
 
 

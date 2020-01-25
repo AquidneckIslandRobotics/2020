@@ -9,10 +9,14 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -31,7 +35,7 @@ import com.revrobotics.ColorSensorV3;
 public class Robot extends TimedRobot {
   
   public static Turret m_turret = new Turret();
-  
+  //Button buttonT = new JoystickButton(RobotContainer.manipulatorJoystick, 3);
 
   private Command m_autonomousCommand;
 
@@ -47,7 +51,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_turret.setDefaultCommand(new TurretTurn());
+   // m_turret.setDefaultCommand(new TurretTurn(m_turret));
     //m_turret.lightsOff();
   }
 

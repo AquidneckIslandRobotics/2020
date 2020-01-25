@@ -103,7 +103,7 @@ leftLeader.configFactoryDefault();
   public void periodic() {
     SmartDashboard.putString("Mode",rightLeader.getControlMode().toString());
     SmartDashboard.putData("Drive", this);
-    System.out.println("accel"+rightLeader.getSelectedSensorVelocity());
+   //System.out.println("accel"+rightLeader.getSelectedSensorVelocity());
     //double x = SmartDashboard.getNumber("SetPoing", 0);
     //rightLeader.set(ControlMode.MotionMagic, 15000);
     // This method will be called once per scheduler run
