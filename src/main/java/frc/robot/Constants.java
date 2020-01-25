@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -29,7 +30,7 @@ public final class Constants {
 
     public static final int TurretServo = 6;
 	public static boolean kSensorPhase = false;
-	public static int kTimeoutMs = 0;
+	public static int kTimeoutMs = 30;
 	public static int kPIDLoopIdx = 0;
     public static boolean kMotorInvert = false;
 
@@ -37,9 +38,18 @@ public final class Constants {
     
     //Encoders
     public static final int TurretEncoder = 0;
-    public static final double DRIVE_DISTANCE = -14;
+    public static final double DRIVE_DISTANCE = 10;
 	public static final int PID_PRIMARY = 0;
-	public static final int REMOTE_0 = 0; 
+	public static final int REMOTE_0 = 0;
+	public static final double kNeutralDeadband = 0.001;
+	
+    public final static int SLOT_0 = 0;
+    public final static int kSlot_Distanc = SLOT_0;
+    public final static Gains kGains_Distanc = new Gains(0.1, 0.001, 4, .01, 100, 1);
+    
+
+
+    
 }
 
 
