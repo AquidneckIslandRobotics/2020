@@ -33,8 +33,26 @@ public final class Constants {
 	public static int kPIDLoopIdx = 0;
     public static boolean kMotorInvert = false;
 
-    public static final int ColorMotor = 12; 
+    public static double kNeutralDeadband = 0.001;
+
+    public static final int ColorMotor = 12;
     
+    public static final int REMOTE_0 = 0;
+    public static final int REMOTE_1 = 1;
+    public static final int PID_PRIMARY = 0;
+    public static final int PID_TURN = 1;
+    
+    public static final int SLOT_0 = 0;
+    public static final int SLOT_1 = 1;
+    public static final int SLOT_2 = 2;
+    public static final int SLOT_3 = 3;
+
+    public static final int kSlot_Distanc = SLOT_0;
+    public static final int kSlot_Turning = SLOT_1;
+    public static final int kSlot_Velocit = SLOT_2;
+    public static final int kSlot_MotProf = SLOT_3;
+	
+
     //Encoders
     public static final int TurretEncoder = 0; 
 }
