@@ -7,22 +7,29 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Drive;
+
+public class DriveTo extends CommandBase {
+  private Drive m_drive;
+  private double m_distance;
+  private double m_clicks;
 
 
-public class ElevatorDrive extends CommandBase {
-  private Elevator m_elevator;
-  private XboxController m_joystick;
   /**
-   * Creates a new ElevatorDrive.
+   * Creates a new DriveTo.
    */
-  public ElevatorDrive(Elevator elevator, XboxController joystick) {
-    m_elevator = elevator;
-    m_joystick = joystick;
-    addRequirements(elevator);
-
+  public DriveTo(Drive drive, double distance ) {
+    m_drive = drive;
+    m_distance = distance;
+    
+    
+    addRequirements(drive);
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -30,20 +37,27 @@ public class ElevatorDrive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // m_clicks = m_distance * 195.66789; 
+    m_clicks = ((m_distance*12.0)/18.8)*4096.0;
+    m_drive.resetEncoder();
+    
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  //dad is actually dpad.
   @Override
   public void execute() {
-    int dad; //dad means DPAD on the controller 
-    dad = m_joystick.getPOV(); 
+    m_drive.setPoint(m_clicks);
+    System.out.println("clicks" + m_clicks);
+
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_drive.stop();
+
   }
 
   // Returns true when the command should end.

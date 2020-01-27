@@ -7,38 +7,28 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Elevator;
+import frc.robot.Robot;
+//import frc.robot.subsystems.Turret; 
 
-
-public class ElevatorDrive extends CommandBase {
-  private Elevator m_elevator;
-  private XboxController m_joystick;
+public class ResetTurret extends CommandBase {
   /**
-   * Creates a new ElevatorDrive.
+   * Creates a new ResetTurret.
    */
-  public ElevatorDrive(Elevator elevator, XboxController joystick) {
-    m_elevator = elevator;
-    m_joystick = joystick;
-    addRequirements(elevator);
-
-
+  public ResetTurret() {
+    addRequirements(Robot.m_turret);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    //Robot.m_turret.resetTurret(); 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  //dad is actually dpad.
   @Override
   public void execute() {
-    int dad; //dad means DPAD on the controller 
-    dad = m_joystick.getPOV(); 
   }
 
   // Called once the command ends or is interrupted.

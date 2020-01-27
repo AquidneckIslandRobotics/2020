@@ -7,14 +7,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; 
-import edu.wpi.first.wpilibj.util.Color; 
-import com.revrobotics.ColorSensorV3; 
-
+import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.TurretTurn;
+import frc.robot.subsystems.Turret;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -22,12 +25,14 @@ import com.revrobotics.ColorSensorV3;
  * project.
  */
 public class Robot extends TimedRobot {
-  private final I2C.Port i2cPort = I2C.Port.kOnboard; 
-  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort); 
+  
+  public static Turret m_turret = new Turret();
+  
 
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -38,6 +43,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_turret.setDefaultCommand(new TurretTurn());
+    //m_turret.lightsOff();
   }
 
   /**
@@ -53,29 +60,8 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+  
     CommandScheduler.getInstance().run();
-    Color detectedColor = m_colorSensor.getColor(); 
-    double IR = m_colorSensor.getIR(); 
-     SmartDashboard.putNumber("Red", detectedColor.red); 
-   SmartDashboard.putNumber("Green", detectedColor.green);  
-   SmartDashboard.putNumber("Blue", detectedColor.blue);  
-   SmartDashboard.putNumber("IR", IR); 
-   SmartDashboard.putString("Color", colorDetector(detectedColor));
-   int proximity = m_colorSensor.getProximity(); 
-   SmartDashboard.putNumber("Proximity", proximity); 
-   }
-   public String colorDetector(Color detectedColor){
-     if(detectedColor.blue > .35){ 
-     return "Blue"; 
-     }else if(detectedColor.green > .5 && detectedColor.red < .200){
-       return "Green";
-     }else if(detectedColor.red > .47 && detectedColor.green > .3){
-       return "Red";
-     }else if(detectedColor.green > .53 && detectedColor.red > .29){
-       return "Yellow";
-     }else{
-       return "Unkown";
-     }
   }
 
   /**
@@ -125,6 +111,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+   // SmartDashboard.putNumber("Turret Encoder", m_turret.getTurretEncoder()); 
   }
 
   @Override
