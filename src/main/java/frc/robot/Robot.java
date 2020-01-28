@@ -17,6 +17,7 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.TurretTurn;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Turret;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -27,7 +28,7 @@ import frc.robot.subsystems.Turret;
 public class Robot extends TimedRobot {
   
   public static Turret m_turret = new Turret();
-  
+  public static ColorSensor m_colorsensor = new ColorSensor();
 
   private Command m_autonomousCommand;
 
@@ -42,6 +43,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+
     m_robotContainer = new RobotContainer();
     m_turret.setDefaultCommand(new TurretTurn());
     //m_turret.lightsOff();
