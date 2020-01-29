@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import frc.robot.commands.ColorMotor;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveTo;
 import frc.robot.commands.ExampleCommand;
@@ -67,10 +68,7 @@ public class RobotContainer {
   Button driverA = new JoystickButton(drivingJoystick1, 1);
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
-  Button driverRB = new JoystickButton(drivingJoystick1, 6); 
-
-  Button manipulatorB = new JoystickButton(manipulatorJoystick, 2); 
-  Button manipulatorX = new JoystickButton(manipulatorJoystick, 3); 
+  Button driverStart = new JoystickButton(drivingJoystick1, 8);
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 
   // The robot's subsystems and commands are defined here...
@@ -122,7 +120,8 @@ public class RobotContainer {
     manipulatorB.whileHeld(new TurretTurn(m_turret, .5)); 
     manipulatorX.whileHeld(new TurretTurn(m_turret, -.5)); 
    // driverX.whenPressed(new LightsOn());
-    //driverX.whenReleased(new LightsOff()); these lines aren't needed bc the limelight already turns off after A is released
+    driverStart.whileHeld(new ColorMotor());
+   //driverX.whenReleased(new LightsOff()); these lines aren't needed bc the limelight already turns off after A is released
   }
 
   /**
