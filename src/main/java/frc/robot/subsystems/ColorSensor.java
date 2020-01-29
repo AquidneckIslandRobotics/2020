@@ -47,6 +47,7 @@ public class ColorSensor extends SubsystemBase {
    SmartDashboard.putNumber("Right X", RobotContainer.getRightX());
    int proximity = m_colorSensor.getProximity(); 
    SmartDashboard.putNumber("Proximity", proximity); 
+    
    }
 
    public String getDetectedColor(){
