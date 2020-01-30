@@ -17,15 +17,17 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SensorTerm;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Drive extends SubsystemBase {
-  TalonSRX leftLeader = new TalonSRX(Constants.LeftLeader);
-    TalonSRX leftFollower1 = new TalonSRX(Constants.LeftFollower1);
+  TalonFX leftLeader = new TalonFX(Constants.LeftLeader);
+    TalonFX leftFollower1 = new TalonFX(Constants.LeftFollower1);
     TalonSRX leftFollower2 = new TalonSRX(Constants.LeftFollower2);
-    TalonSRX rightLeader = new TalonSRX(Constants.RightLeader);
-    TalonSRX rightFollower1 = new TalonSRX(Constants.RightFollower1);
+    TalonFX rightLeader = new TalonFX(Constants.RightLeader);
+    TalonFX rightFollower1 = new TalonFX(Constants.RightFollower1);
     TalonSRX rightFollower2 = new TalonSRX(Constants.RightFollower2);
+    //TalonFX testMotor = new TalonFX(Constants.testMotor);
     //DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
   /**
    * Creates a new Drive.
@@ -52,6 +54,7 @@ public class Drive extends SubsystemBase {
 leftLeader.configFactoryDefault();
    leftLeader.follow(rightLeader);
    rightLeader.configFactoryDefault();
+   //testMotor.configFactoryDefault();
    
    leftLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.PID_PRIMARY, Constants.kTimeoutMs);
    rightLeader.configRemoteFeedbackFilter(leftLeader.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, Constants.REMOTE_0, Constants.kTimeoutMs);
@@ -60,10 +63,11 @@ leftLeader.configFactoryDefault();
     rightLeader.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, Constants.PID_PRIMARY, Constants.kTimeoutMs);
    rightLeader.configSelectedFeedbackCoefficient(0.5, Constants.PID_PRIMARY, Constants.kTimeoutMs); 
    rightLeader.configNeutralDeadband(.001, 30);
-   leftLeader.setInverted(false);
+   leftLeader.setInverted(true);
    leftLeader.setSensorPhase(true);
    rightLeader.setSensorPhase(false);
    rightLeader.setInverted(false);
+   //testMotor.setInverted(true);
    rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 30);
    rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 10, 30);
 
@@ -95,8 +99,11 @@ leftLeader.configFactoryDefault();
     rightLeader.set(ControlMode.PercentOutput, 0);
 
 
-  }
 
+  }
+public void driveForward(double speed){
+  leftLeader.set(ControlMode.PercentOutput, speed);
+}
 
 
   @Override

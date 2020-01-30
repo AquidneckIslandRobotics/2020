@@ -18,6 +18,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.LightsOff;
 import frc.robot.commands.LightsOn;
 import frc.robot.commands.TurretTarget;
+import frc.robot.commands.driveTest;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -55,6 +56,7 @@ public class RobotContainer {
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
   Button driverStart = new JoystickButton(drivingJoystick1, 8);
+  Button testButton = new JoystickButton(drivingJoystick1, 7);
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 
   // The robot's subsystems and commands are defined here...
@@ -78,8 +80,9 @@ public class RobotContainer {
     //m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
     button1.whenPressed(new DriveTo(m_drive, Constants.DRIVE_DISTANCE));
      
-    m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+   // m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     driverA.whileHeld(new TurretTarget()); 
+    m_drive.setDefaultCommand(new driveTest(m_drive));
     
     
   }
@@ -95,6 +98,7 @@ public class RobotContainer {
    // driverX.whenPressed(new LightsOn());
     driverStart.whileHeld(new ColorMotor());
    //driverX.whenReleased(new LightsOff()); these lines aren't needed bc the limelight already turns off after A is released
+    testButton.whenHeld(new driveTest(m_drive));
   }
 
   /**
