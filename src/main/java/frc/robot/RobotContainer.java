@@ -17,18 +17,12 @@ import frc.robot.commands.ColorSpinThree;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveTo;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.LightsOff;
-import frc.robot.commands.LightsOn;
 import frc.robot.commands.TurretTarget;
-import frc.robot.commands.driveTest;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
-import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drive;
-import frc.robot.commands.TurretTarget;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -41,16 +35,20 @@ public class RobotContainer {
   public static XboxController colorJoystick = new XboxController(2);
 
 
-  public static double getRightX() {
+ public static double getRightX() {
     //Get raw value from joystick
-    double rightX = drivingJoystick1.getX(Hand.kRight);
+    double rightX = colorJoystick.getX(Hand.kRight);
     //Check for deadzone
     if (Math.abs(rightX) < 0.05) {
       rightX = 0;
     }
     //Return adjusted value
     return rightX;
+
+    
   }
+
+  
   
 
   Button button = new JoystickButton(drivingJoystick1, 6);
@@ -92,11 +90,25 @@ public class RobotContainer {
     //m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
     button1.whenPressed(new DriveTo(m_drive, Constants.DRIVE_DISTANCE));
      
-   // m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+       m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+
+   //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     driverA.whileHeld(new TurretTarget()); 
-    m_drive.setDefaultCommand(new driveTest(m_drive));
+    // m_drive.setDefaultCommand(new driveTest(m_drive));
     
     
+  }
+
+  public double getSpeed() {
+    double speed = drivingJoystick1.getY(Hand.kLeft); 
+    if(Math.abs(speed) < 0.12 ) return 0; 
+    else return speed; 
+  }
+
+  public double getRotation() {
+    double rotation = -drivingJoystick1.getX(Hand.kRight); 
+    if(Math.abs(rotation) < 0.12) return 0; 
+    else return rotation; 
   }
 
   /**
@@ -111,7 +123,7 @@ public class RobotContainer {
     driverStart.whenPressed(new ColorSpinThree());
     driverBack.whileHeld(new ColorSpinTarget());
    //driverX.whenReleased(new LightsOff()); these lines aren't needed bc the limelight already turns off after A is released
-    testButton.whenHeld(new driveTest(m_drive));
+    testButton.whenHeld(new DriveTo(m_drive, 5));
    colorA.whenPressed(new AutoColor("Green"));
    colorB.whenPressed(new AutoColor("Red"));
    colorX.whenPressed(new AutoColor("Blue"));

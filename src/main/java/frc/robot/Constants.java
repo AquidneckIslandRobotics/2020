@@ -20,13 +20,12 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 public final class Constants {
     public static final int LeftLeader = 2;
     public static final int LeftFollower1 = 1;
-    public static final int LeftFollower2 = 21;
+    //public static final int LeftFollower2 = 21;
     public static final int RightLeader = 3;
     public static final int RightFollower1 = 4;
-    public static final int RightFollower2 = 16;
+    //public static final int RightFollower2 = 16;
     public static final int LeftElevator = 5;
     public static final int RightElevator = 10;
-    public static final int testMotor = 13;
 
 
     public static final int TurretServo = 6;

@@ -19,44 +19,41 @@ import com.ctre.phoenix.motorcontrol.SensorTerm;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Drive extends SubsystemBase {
-  TalonFX leftLeader = new TalonFX(Constants.LeftLeader);
-    TalonFX leftFollower1 = new TalonFX(Constants.LeftFollower1);
-    TalonSRX leftFollower2 = new TalonSRX(Constants.LeftFollower2);
-    TalonFX rightLeader = new TalonFX(Constants.RightLeader);
-    TalonFX rightFollower1 = new TalonFX(Constants.RightFollower1);
-    TalonSRX rightFollower2 = new TalonSRX(Constants.RightFollower2);
-    //TalonFX testMotor = new TalonFX(Constants.testMotor);
-    //DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
+  WPI_TalonFX leftLeader = new WPI_TalonFX(Constants.LeftLeader);
+    WPI_TalonFX leftFollower1 = new WPI_TalonFX(Constants.LeftFollower1);
+    WPI_TalonFX rightLeader = new WPI_TalonFX(Constants.RightLeader);
+    WPI_TalonFX rightFollower1 = new WPI_TalonFX(Constants.RightFollower1);
+    DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
   /**
    * Creates a new Drive.
    */
   public Drive() {
+    rightLeader.configFactoryDefault();
+    leftLeader.configFactoryDefault();
+
     leftFollower1.configFactoryDefault();
-    leftFollower2.configFactoryDefault();
    leftFollower1.follow(leftLeader);
-   leftFollower2.follow(leftLeader);
    rightFollower1.configFactoryDefault();
-   rightFollower2.configFactoryDefault();
    rightFollower1.follow(rightLeader);
-   rightFollower2.follow(rightLeader);
    leftLeader.setInverted(true);
    leftFollower1.setInverted(true);
-   leftFollower2.setInverted(true);
+  
 
    double speed = 0.5;
    double rotation = 0.5;
    boolean quickTurn = true;
-   //diffDrive.curvatureDrive(speed, rotation, quickTurn);
+   diffDrive.curvatureDrive(speed, rotation, quickTurn);
 
 
-leftLeader.configFactoryDefault();
-   leftLeader.follow(rightLeader);
-   rightLeader.configFactoryDefault();
+  leftLeader.follow(rightLeader);
+
+
    //testMotor.configFactoryDefault();
    
-   leftLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.PID_PRIMARY, Constants.kTimeoutMs);
+leftLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.PID_PRIMARY, Constants.kTimeoutMs);
    rightLeader.configRemoteFeedbackFilter(leftLeader.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, Constants.REMOTE_0, Constants.kTimeoutMs);
    rightLeader.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor0, Constants.kTimeoutMs);
    rightLeader.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Absolute, Constants.kTimeoutMs);
@@ -86,8 +83,10 @@ leftLeader.configFactoryDefault();
 
    rightLeader.setSelectedSensorPosition(0, 0, 30);
   }
+  
   public void curvatureDrive(double speed, double rotation, boolean quickTurn){
-    //diffDrive.curvatureDrive(speed, rotation, quickTurn);
+    diffDrive.curvatureDrive(speed, rotation, quickTurn);
+    
   }
   public void setPoint(double rotation){
     rightLeader.set(ControlMode.MotionMagic, rotation);
@@ -101,9 +100,11 @@ leftLeader.configFactoryDefault();
 
 
   }
-public void driveForward(double speed){
-  leftLeader.set(ControlMode.PercentOutput, speed);
-}
+// public void driveForward(double speed){
+//leftLeader.set(ControlMode.PercentOutput, speed);
+
+//rightLeader.set(ControlMode.PercentOutput, speed); 
+// }
 
 
   @Override
