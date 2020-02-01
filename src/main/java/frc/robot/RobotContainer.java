@@ -11,22 +11,19 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import frc.robot.commands.AutoColor;
 import frc.robot.commands.ColorSpinTarget;
 import frc.robot.commands.ColorSpinThree;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveTo;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.LightsOff;
-import frc.robot.commands.LightsOn;
 import frc.robot.commands.TurretTarget;
 import frc.robot.commands.TurretTurn;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
-import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drive;
 import frc.robot.commands.TurretTarget;
 import frc.robot.commands.ColorSpinThree;
@@ -44,15 +41,17 @@ public class RobotContainer {
   public static XboxController colorJoystick = new XboxController(2); 
 
 
-  public static double getRightX() {
+ public static double getRightX() {
     //Get raw value from joystick
-    double rightX = drivingJoystick1.getX(Hand.kRight);
+    double rightX = colorJoystick.getX(Hand.kRight);
     //Check for deadzone
     if (Math.abs(rightX) < 0.05) {
       rightX = 0;
     }
     //Return adjusted value
     return rightX;
+
+    
   }
 
   public static double rightXm() {
@@ -72,8 +71,7 @@ public class RobotContainer {
   Button driverA = new JoystickButton(drivingJoystick1, 1);
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
-  Button driverStart = new JoystickButton(drivingJoystick1, 8);
-  Button driverBack = new JoystickButton(drivingJoystick1, 7); 
+  
 
   Button manipulatorX = new JoystickButton(manipulatorJoystick, 3); 
   Button manipulatorB = new JoystickButton(manipulatorJoystick, 2); 
@@ -82,7 +80,13 @@ public class RobotContainer {
   Button colorB = new JoystickButton(colorJoystick, 2); //Will call red 
   Button colorX = new JoystickButton(colorJoystick, 3); // Will call Blue 
   Button colorY = new JoystickButton(colorJoystick, 4); //Will call yellow
+  Button testButton = new JoystickButton(drivingJoystick1, 7); 
+
+
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
+  Button driverStart = new JoystickButton(colorJoystick, 8);
+  Button driverBack = new JoystickButton(colorJoystick, 7);
+  // A is green, B is red, X is blue and Y is yellow.
 
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -107,18 +111,31 @@ public class RobotContainer {
     //m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
     button1.whenPressed(new DriveTo(m_drive, Constants.DRIVE_DISTANCE));
      
+
    // m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     driverA.whileHeld(new TurretTarget()); 
+    driverA.whileHeld(new TurretTarget()); 
+    // m_drive.setDefaultCommand(new driveTest(m_drive));
 
     
-    
     //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
-   // m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
     button1.whenPressed(new DriveTo(m_drive, 8));
      
    // m_turret.setDefaultCommand(new TurretTurn(m_turret));
 
     
+  }
+
+  public double getSpeed() {
+    double speed = drivingJoystick1.getY(Hand.kLeft); 
+    if(Math.abs(speed) < 0.12 ) return 0; 
+    else return speed; 
+  }
+
+  public double getRotation() {
+    double rotation = -drivingJoystick1.getX(Hand.kRight); 
+    if(Math.abs(rotation) < 0.12) return 0; 
+    else return rotation; 
   }
 
   /**
@@ -144,6 +161,11 @@ public class RobotContainer {
     
     
    //driverX.whenReleased(new LightsOff()); these lines aren't needed bc the limelight already turns off after A is released
+    testButton.whenHeld(new DriveTo(m_drive, 5));
+   colorA.whenPressed(new AutoColor("Green"));
+   colorB.whenPressed(new AutoColor("Red"));
+   colorX.whenPressed(new AutoColor("Blue"));
+   colorY.whenPressed(new AutoColor("Yellow"));
   }
 
   /**

@@ -52,8 +52,6 @@ public class AutoColor extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Robot.m_colorsensor.colorMotor.set(ControlMode.PercentOutput, 0);
-
-     
   }
 
   // Returns true when the command should end.

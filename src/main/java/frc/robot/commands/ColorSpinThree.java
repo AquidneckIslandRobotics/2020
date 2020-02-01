@@ -24,7 +24,7 @@ public class ColorSpinThree extends CommandBase {
   public boolean inbetween = false;
   // 1 is true 0 is false
   /**
-   * Creates a new ColorMotor.
+   * Creates a new ColorSpinThree.
    */
   public ColorSpinThree() {
     // Use addRequirements() here to declare subsystem dependencies.
