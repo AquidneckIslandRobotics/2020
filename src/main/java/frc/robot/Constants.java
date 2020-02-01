@@ -26,9 +26,12 @@ public final class Constants {
     public static final int RightFollower2 = 16;
     public static final int LeftElevator = 5;
     public static final int RightElevator = 10;
+    public static final int Shooter1 = 17;
+    public static final int Shooter2 = 18;
 
 
     public static final int TurretServo = 6;
+    public static final int TurretWheel = 20;
 	public static boolean kSensorPhase = false;
 	public static int kTimeoutMs = 0;
 	public static int kPIDLoopIdx = 0;

@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drive;
 import frc.robot.commands.TurretTarget;
+import frc.robot.commands.Shoot;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -108,6 +109,7 @@ public class RobotContainer {
    colorB.whenPressed(new AutoColor("Red"));
    colorX.whenPressed(new AutoColor("Blue"));
    colorY.whenPressed(new AutoColor("Yellow"));
+   button1.whenHeld
   }
 
   /**
