@@ -20,18 +20,19 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 public final class Constants {
     public static final int LeftLeader = 2;
     public static final int LeftFollower1 = 1;
-    //public static final int LeftFollower2 = 21;
+    
+    
     public static final int RightLeader = 3;
     public static final int RightFollower1 = 4;
-    //public static final int RightFollower2 = 16;
+   
     public static final int LeftElevator = 5;
     public static final int RightElevator = 10;
-    public static final int Shooter1 = 17;
-    public static final int Shooter2 = 18;
-
+    
+    public static final int Shooter1  = 6; 
+    public static final int Shooter2 = 7; 
 
     public static final int TurretServo = 6;
-    public static final int TurretWheel = 20;
+    public static final int TurretWheel = 100; // this isn't the right number 
 	public static boolean kSensorPhase = false;
 	public static int kTimeoutMs = 0;
 	public static int kPIDLoopIdx = 0;
