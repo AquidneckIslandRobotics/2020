@@ -16,7 +16,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.SensorTerm;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
@@ -26,13 +26,12 @@ import com.ctre.phoenix.sensors.PigeonIMU_StatusFrame;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 public class Drive extends SubsystemBase {
-  public WPI_TalonSRX leftLeader = new WPI_TalonSRX(Constants.LeftLeader);
-  public WPI_TalonSRX leftFollower1 = new WPI_TalonSRX(Constants.LeftFollower1);
-  public WPI_TalonSRX leftFollower2 = new WPI_TalonSRX(Constants.LeftFollower2);
-  public WPI_TalonSRX rightLeader = new WPI_TalonSRX(Constants.RightLeader);
-  public WPI_TalonSRX rightFollower1 = new WPI_TalonSRX(Constants.RightFollower1);
-  public WPI_TalonSRX rightFollower2 = new WPI_TalonSRX(Constants.RightFollower2);
+  public WPI_TalonFX leftLeader = new WPI_TalonFX(Constants.LeftLeader);
+  public WPI_TalonFX leftFollower1 = new WPI_TalonFX(Constants.LeftFollower1); 
+  public WPI_TalonFX rightLeader = new WPI_TalonFX(Constants.RightLeader);
+  public WPI_TalonFX rightFollower1 = new WPI_TalonFX(Constants.RightFollower1);
   DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
+  
   PigeonIMU _pidgey;
 
   final int kPigeonID = 30;
@@ -42,9 +41,7 @@ public class Drive extends SubsystemBase {
   public Drive() {
     System.out.println("Starting Drive");
    leftFollower1.follow(leftLeader);
-   leftFollower2.follow(leftLeader);
    rightFollower1.follow(rightLeader);
-   rightFollower2.follow(rightLeader);
 
    double speed = 0.5;
    double rotation = 0.5;
