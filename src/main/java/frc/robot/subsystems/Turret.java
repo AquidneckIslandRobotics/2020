@@ -81,7 +81,7 @@ public class Turret extends SubsystemBase {
     turretServo = new TalonSRX(Constants.talonsrxturret); 
     turretServo.setSensorPhase(false);
     turretServo.setInverted(false);
-    turretServo.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+    turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     
    // m_analogSensor = turretServo.;
 
@@ -140,7 +140,7 @@ public class Turret extends SubsystemBase {
     SmartDashboard.putNumber("Turret Set Point", rotations); 
    // SmartDashboard.putNumber("Process Variable Conversion", m_analogSensor.getPositionConversionFactor()); 
    //SmartDashboard.putNumber("Process Variable Get Pos only", m_analogSensor()); 
-  SmartDashboard.putNumber("Sesnor Velocity", turretServo.getSelectedSensorVelocity()); 
+  SmartDashboard.putNumber("Sensor Velocity", turretServo.getSelectedSensorVelocity()); 
     SmartDashboard.putNumber("Sensor Position", turretServo.getSelectedSensorPosition()); 
     
    
