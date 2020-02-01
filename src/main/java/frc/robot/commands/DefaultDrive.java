@@ -22,13 +22,15 @@ public class DefaultDrive extends CommandBase {
   /**
    * Creates a new DefaultDrive.
    */
-  public DefaultDrive(Drive subsystems, XboxController Joy, Button button) {
-    m_subsystem = subsystems;
-    m_Joystick = Joy;
-    m_button = button;
-    addRequirements(subsystems);
-    // Use addRequirements() here to declare subsystem dependencies.
+  public DefaultDrive( Drive m_subsystem, XboxController m_Joystick , Button m_button) {
+  
+this.m_subsystem = m_subsystem;
+    this.m_Joystick = m_Joystick; 
+    this.m_button = m_button; 
+    addRequirements(m_subsystem);
   }
+    // Use addRequirements() here to declare subsystem dependencies.
+  
 
   // Called when the command is initially scheduled.
   @Override
