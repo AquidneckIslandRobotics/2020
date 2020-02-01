@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import frc.robot.commands.ColorMotor;
+import frc.robot.commands.ColorSpinTarget;
+import frc.robot.commands.ColorSpinThree;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveTo;
 import frc.robot.commands.ExampleCommand;
@@ -28,6 +29,8 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drive;
 import frc.robot.commands.TurretTarget;
+import frc.robot.commands.ColorSpinThree;
+import frc.robot.commands.AutoColor; 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -38,6 +41,7 @@ public class RobotContainer {
 
   public static XboxController manipulatorJoystick = new XboxController(0); 
   public static XboxController drivingJoystick1 = new XboxController(1);
+  public static XboxController colorJoystick = new XboxController(2); 
 
 
   public static double getRightX() {
@@ -69,6 +73,15 @@ public class RobotContainer {
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
   Button driverStart = new JoystickButton(drivingJoystick1, 8);
+  Button driverBack = new JoystickButton(drivingJoystick1, 7); 
+
+  Button manipulatorX = new JoystickButton(manipulatorJoystick, 3); 
+  Button manipulatorB = new JoystickButton(manipulatorJoystick, 2); 
+
+  Button colorA = new JoystickButton(colorJoystick, 1); //will call Green
+  Button colorB = new JoystickButton(colorJoystick, 2); //Will call red 
+  Button colorX = new JoystickButton(colorJoystick, 3); // Will call Blue 
+  Button colorY = new JoystickButton(colorJoystick, 4); //Will call yellow
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 
   // The robot's subsystems and commands are defined here...
@@ -119,8 +132,17 @@ public class RobotContainer {
 
     manipulatorB.whileHeld(new TurretTurn(m_turret, .5)); 
     manipulatorX.whileHeld(new TurretTurn(m_turret, -.5)); 
+
+
+
+
    // driverX.whenPressed(new LightsOn());
-    driverStart.whileHeld(new ColorMotor());
+    driverStart.whenPressed(new ColorSpinThree());
+    driverBack.whileHeld(new ColorSpinTarget()); 
+
+    colorA.whenPressed(new AutoColor("green"));
+    
+    
    //driverX.whenReleased(new LightsOff()); these lines aren't needed bc the limelight already turns off after A is released
   }
 

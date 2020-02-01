@@ -36,11 +36,7 @@ import com.revrobotics.ColorSensorV3;
 public class Robot extends TimedRobot {
   
   public static Turret m_turret = new Turret();
-<<<<<<< HEAD
-  //Button buttonT = new JoystickButton(RobotContainer.manipulatorJoystick, 3);
-=======
   public static ColorSensor m_colorsensor = new ColorSensor();
->>>>>>> 4330cdb046652c32bc273a7fe6d8180b697a45db
 
   private Command m_autonomousCommand;
 
