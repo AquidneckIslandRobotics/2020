@@ -14,6 +14,7 @@ import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SensorTerm;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
@@ -23,50 +24,62 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Drive extends SubsystemBase {
   WPI_TalonFX leftLeader = new WPI_TalonFX(Constants.LeftLeader);
-    WPI_TalonFX leftFollower1 = new WPI_TalonFX(Constants.LeftFollower1);
-    WPI_TalonFX rightLeader = new WPI_TalonFX(Constants.RightLeader);
-    WPI_TalonFX rightFollower1 = new WPI_TalonFX(Constants.RightFollower1);
+  WPI_TalonFX leftFollower1 = new WPI_TalonFX(Constants.LeftFollower1);
+    
+  WPI_TalonFX rightLeader = new WPI_TalonFX(Constants.RightLeader);
+  WPI_TalonFX rightFollower1 = new WPI_TalonFX(Constants.RightFollower1);
+   
     DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
   /**
    * Creates a new Drive.
    */
   public Drive() {
-    rightLeader.configFactoryDefault();
-    leftLeader.configFactoryDefault();
-
     leftFollower1.configFactoryDefault();
-   leftFollower1.follow(leftLeader);
+    leftFollower1.follow(leftLeader);
    rightFollower1.configFactoryDefault();
    rightFollower1.follow(rightLeader);
-   leftLeader.setInverted(true);
-   leftFollower1.setInverted(true);
   
+
 
    double speed = 0.5;
    double rotation = 0.5;
    boolean quickTurn = true;
-   diffDrive.curvatureDrive(speed, rotation, quickTurn);
+   //diffDrive.curvatureDrive(speed, rotation, quickTurn);
 
 
-  leftLeader.follow(rightLeader);
-
-
-   //testMotor.configFactoryDefault();
+leftLeader.configFactoryDefault();
+   leftLeader.follow(rightLeader);
+   rightLeader.configFactoryDefault();
    
-leftLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.PID_PRIMARY, Constants.kTimeoutMs);
+   leftLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.PID_PRIMARY, Constants.kTimeoutMs);
    rightLeader.configRemoteFeedbackFilter(leftLeader.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, Constants.REMOTE_0, Constants.kTimeoutMs);
    rightLeader.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor0, Constants.kTimeoutMs);
    rightLeader.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Absolute, Constants.kTimeoutMs);
     rightLeader.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, Constants.PID_PRIMARY, Constants.kTimeoutMs);
    rightLeader.configSelectedFeedbackCoefficient(0.5, Constants.PID_PRIMARY, Constants.kTimeoutMs); 
    rightLeader.configNeutralDeadband(.001, 30);
-   leftLeader.setInverted(true);
+   leftLeader.setInverted(false);
    leftLeader.setSensorPhase(true);
    rightLeader.setSensorPhase(false);
    rightLeader.setInverted(false);
-   //testMotor.setInverted(true);
    rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 30);
    rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 10, 30);
+
+    rightFollower1.follow(rightLeader); 
+    leftFollower1.follow(leftLeader); 
+
+    rightLeader.setInverted(true); 
+    leftLeader.setInverted(false);
+
+    rightFollower1.setInverted(InvertType.FollowMaster); 
+    leftFollower1.setInverted(InvertType.FollowMaster); 
+
+    rightLeader.setSensorPhase(true);
+    leftLeader.setSensorPhase(true);
+
+    diffDrive.setRightSideInverted(false); 
+
+    
 
    rightLeader.configNominalOutputForward(0, 30);
    rightLeader.configNominalOutputReverse(0, 30);
@@ -83,10 +96,8 @@ leftLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.PI
 
    rightLeader.setSelectedSensorPosition(0, 0, 30);
   }
-  
   public void curvatureDrive(double speed, double rotation, boolean quickTurn){
-    diffDrive.curvatureDrive(speed, rotation, quickTurn);
-    
+    //diffDrive.curvatureDrive(speed, rotation, quickTurn);
   }
   public void setPoint(double rotation){
     rightLeader.set(ControlMode.MotionMagic, rotation);
@@ -98,13 +109,8 @@ leftLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.PI
     rightLeader.set(ControlMode.PercentOutput, 0);
 
 
-
   }
-// public void driveForward(double speed){
-//leftLeader.set(ControlMode.PercentOutput, speed);
 
-//rightLeader.set(ControlMode.PercentOutput, speed); 
-// }
 
 
   @Override
