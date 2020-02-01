@@ -30,14 +30,15 @@ public final class Constants {
     public static final int Shooter2 = 18;
 
 
-    public static final int TurretServo = 6;
-    public static final int TurretWheel = 20;
+    public static final int TurretServo = 62;
+    public static final int TurretWheel1 = 7;
+    public static final int TurretWheel2 = 6;
 	public static boolean kSensorPhase = false;
 	public static int kTimeoutMs = 0;
 	public static int kPIDLoopIdx = 0;
     public static boolean kMotorInvert = false;
 
-    public static final int ColorMotor = 7; 
+    public static final int ColorMotor = 8;//7; 
     
     //Encoders
     public static final int TurretEncoder = 0;
