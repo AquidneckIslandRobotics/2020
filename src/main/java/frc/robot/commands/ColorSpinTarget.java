@@ -7,45 +7,39 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.Button;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Drive;
-import edu.wpi.first.wpilibj.GenericHID;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class DefaultDrive extends CommandBase {
-  private static final Drive XboxController = null;
-  private final Drive m_subsystem;
-  private XboxController m_Joystick;
-  private Button m_button;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+
+public class ColorSpinTarget extends CommandBase {
+  public String dColor = "unknown";
   /**
-   * Creates a new DefaultDrive.
+   * Creates a new ColorSpinTarget.
    */
-  public DefaultDrive( Drive m_subsystem, XboxController m_Joystick , Button m_button) {
-  
-this.m_subsystem = m_subsystem;
-    this.m_Joystick = m_Joystick; 
-    this.m_button = m_button; 
-    addRequirements(m_subsystem);
-  }
+  public ColorSpinTarget() {
     // Use addRequirements() here to declare subsystem dependencies.
-  
+  }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    dColor = Robot.m_colorsensor.getDetectedColor();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.curvatureDrive(m_Joystick.getY(GenericHID.Hand.kLeft),(m_Joystick.getX(GenericHID.Hand.kRight) *-1), m_button.get());
+    dColor = Robot.m_colorsensor.getDetectedColor();
+    SmartDashboard.putString("Detected Color", dColor);
+    Robot.m_colorsensor.colorMotor.set(ControlMode.PercentOutput, .2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.m_colorsensor.colorMotor.set(ControlMode.PercentOutput, 0);
   }
 
   // Returns true when the command should end.

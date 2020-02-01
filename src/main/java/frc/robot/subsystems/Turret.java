@@ -36,14 +36,20 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;  
 
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Turret extends SubsystemBase {
-
-  //Faults _faults = new Faults(); 
- // public static TalonSRX turretServo = new TalonSRX(Constants.TurretServo);
-
-
+  public static TalonSRX turretServo = new TalonSRX(Constants.TurretServo);
+  public static WPI_TalonFX turretWheel = new WPI_TalonFX(Constants.TurretWheel);
   //public static Encoder turretEncoder = new Encoder(Constants.TurretEncoder); 
   public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   public NetworkTableEntry tx = table.getEntry("tx");
@@ -51,7 +57,7 @@ public class Turret extends SubsystemBase {
   NetworkTableEntry ta = table.getEntry("ta");
 
   //public CANSparkMax turretServo; 
-  public TalonSRX turretServo; 
+
    
 
 
@@ -163,5 +169,9 @@ public class Turret extends SubsystemBase {
   }
   public void stopTurret(){
     turretServo.set(ControlMode.PercentOutput, 0);
-  } 
+  }
+
+public void startWheel() {
+  turretWheel.set(ControlMode.PercentOutput, .5);
+}
 }

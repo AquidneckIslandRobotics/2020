@@ -12,17 +12,19 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorSensorV3;  
 
 
 public class ColorSensor extends SubsystemBase {
   private final I2C.Port i2cPort = I2C.Port.kOnboard; 
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort); 
-  public static VictorSPX colorMotor = new VictorSPX(Constants.ColorMotor);
+  public static TalonSRX colorMotor = new TalonSRX(Constants.ColorMotor);
+  public Color detectedColor;
+  
   /**
    * Creates a new ColorSensor.
    */
@@ -33,20 +35,22 @@ public class ColorSensor extends SubsystemBase {
 
   @Override
   public void periodic() {
-    CommandScheduler.getInstance().run();
-    Color detectedColor = m_colorSensor.getColor(); 
+    //CommandScheduler.getInstance().run();
+    detectedColor = m_colorSensor.getColor(); 
     double IR = m_colorSensor.getIR(); 
      SmartDashboard.putNumber("Red", detectedColor.red); 
    SmartDashboard.putNumber("Green", detectedColor.green);  
    SmartDashboard.putNumber("Blue", detectedColor.blue);  
    SmartDashboard.putNumber("IR", IR); 
-   SmartDashboard.putString("Color", colorDetector(detectedColor));
+   SmartDashboard.putString("Color", getDetectedColor());
    
    SmartDashboard.putNumber("Right X", RobotContainer.getRightX());
    int proximity = m_colorSensor.getProximity(); 
    SmartDashboard.putNumber("Proximity", proximity); 
+    
    }
-   public String colorDetector(Color detectedColor){
+
+   public String getDetectedColor(){
      if(detectedColor.blue > .35){ 
      return "Blue"; 
      }else if(detectedColor.green > .5 && detectedColor.red < .200){
@@ -56,7 +60,7 @@ public class ColorSensor extends SubsystemBase {
      }else if(detectedColor.green > .53 && detectedColor.red > .29){
        return "Yellow";
      }else{
-       return "Unkown";
+       return "Unknown";
      }
     // This method will be called once per scheduler run
   }
