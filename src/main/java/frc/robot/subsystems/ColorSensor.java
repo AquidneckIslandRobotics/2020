@@ -22,7 +22,7 @@ import com.revrobotics.ColorSensorV3;
 public class ColorSensor extends SubsystemBase {
   private final I2C.Port i2cPort = I2C.Port.kOnboard; 
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort); 
-  public static TalonSRX colorMotor = new TalonSRX(Constants.ColorMotor);
+  public static TalonSRX controlPanel = new TalonSRX(Constants.ControlPanel);
   public Color detectedColor;
   
   /**

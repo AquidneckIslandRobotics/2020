@@ -36,13 +36,13 @@ public class AutoColor extends CommandBase {
   public void execute() {
     dColor = Robot.m_colorsensor.getDetectedColor();
     SmartDashboard.putString("Auto Detected Color", dColor);
-    Robot.m_colorsensor.colorMotor.set(ControlMode.PercentOutput, .2);
+    Robot.m_colorsensor.controlPanel.set(ControlMode.PercentOutput, .2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.m_colorsensor.colorMotor.set(ControlMode.PercentOutput, 0);
+    Robot.m_colorsensor.controlPanel.set(ControlMode.PercentOutput, 0);
   }
 
   // Returns true when the command should end.

@@ -48,8 +48,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Turret extends SubsystemBase {
-  public static TalonSRX turretServo = new TalonSRX(Constants.TurretServo);
-  public static WPI_TalonFX turretWheel = new WPI_TalonFX(Constants.TurretWheel);
+  public static TalonSRX turretRotate = new TalonSRX(Constants.TurretRotate);
+  public static WPI_TalonFX turretWheel = new WPI_TalonFX(Constants.LeftShooter);
   //public static Encoder turretEncoder = new Encoder(Constants.TurretEncoder); 
   public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   public NetworkTableEntry tx = table.getEntry("tx");
@@ -84,10 +84,10 @@ public class Turret extends SubsystemBase {
     m_pidController = turretServo.getPIDController(); 
     m_pidController.setFeedbackDevice(m_analogSensor); 
     */ 
-    turretServo = new TalonSRX(Constants.talonsrxturret); 
-    turretServo.setSensorPhase(false);
-    turretServo.setInverted(false);
-    turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    turretRotate = new TalonSRX(Constants.talonsrxturret); 
+    turretRotate.setSensorPhase(false);
+    turretRotate.setInverted(false);
+    turretRotate.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     
    // m_analogSensor = turretServo.;
 
@@ -146,8 +146,8 @@ public class Turret extends SubsystemBase {
     SmartDashboard.putNumber("Turret Set Point", rotations); 
    // SmartDashboard.putNumber("Process Variable Conversion", m_analogSensor.getPositionConversionFactor()); 
    //SmartDashboard.putNumber("Process Variable Get Pos only", m_analogSensor()); 
-  SmartDashboard.putNumber("Sensor Velocity", turretServo.getSelectedSensorVelocity()); 
-    SmartDashboard.putNumber("Sensor Position", turretServo.getSelectedSensorPosition()); 
+  SmartDashboard.putNumber("Sensor Velocity", turretRotate.getSelectedSensorVelocity()); 
+    SmartDashboard.putNumber("Sensor Position", turretRotate.getSelectedSensorPosition()); 
     
    
 
@@ -163,12 +163,12 @@ public class Turret extends SubsystemBase {
   }
 
  public void setSpeed(double speed){
-    turretServo.set(ControlMode.PercentOutput, speed);
+    turretRotate.set(ControlMode.PercentOutput, speed);
     //turretServo.getFaults(_faults); 
   
   }
   public void stopTurret(){
-    turretServo.set(ControlMode.PercentOutput, 0);
+    turretRotate.set(ControlMode.PercentOutput, 0);
   }
 
 public void startWheel() {

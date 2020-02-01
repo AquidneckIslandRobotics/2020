@@ -24,20 +24,20 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Drive extends SubsystemBase {
   WPI_TalonFX leftLeader = new WPI_TalonFX(Constants.LeftLeader);
-  WPI_TalonFX leftFollower1 = new WPI_TalonFX(Constants.LeftFollower1);
+  WPI_TalonFX leftFollower = new WPI_TalonFX(Constants.LeftFollower);
     
   WPI_TalonFX rightLeader = new WPI_TalonFX(Constants.RightLeader);
-  WPI_TalonFX rightFollower1 = new WPI_TalonFX(Constants.RightFollower1);
+  WPI_TalonFX rightFollower = new WPI_TalonFX(Constants.RightFollower);
    
     DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
   /**
    * Creates a new Drive.
    */
   public Drive() {
-    leftFollower1.configFactoryDefault();
-    leftFollower1.follow(leftLeader);
-   rightFollower1.configFactoryDefault();
-   rightFollower1.follow(rightLeader);
+    leftFollower.configFactoryDefault();
+    leftFollower.follow(leftLeader);
+   rightFollower.configFactoryDefault();
+   rightFollower.follow(rightLeader);
   
 
 
@@ -65,14 +65,14 @@ leftLeader.configFactoryDefault();
    rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 30);
    rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 10, 30);
 
-    rightFollower1.follow(rightLeader); 
-    leftFollower1.follow(leftLeader); 
+    rightFollower.follow(rightLeader); 
+    leftFollower.follow(leftLeader); 
 
     rightLeader.setInverted(true); 
     leftLeader.setInverted(false);
 
-    rightFollower1.setInverted(InvertType.FollowMaster); 
-    leftFollower1.setInverted(InvertType.FollowMaster); 
+    rightFollower.setInverted(InvertType.FollowMaster); 
+    leftFollower.setInverted(InvertType.FollowMaster); 
 
     rightLeader.setSensorPhase(true);
     leftLeader.setSensorPhase(true);
