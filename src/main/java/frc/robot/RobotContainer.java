@@ -128,7 +128,7 @@ public class RobotContainer {
    colorB.whenPressed(new AutoColor("Red"));
    colorX.whenPressed(new AutoColor("Blue"));
    colorY.whenPressed(new AutoColor("Yellow"));
-   button1.whenHeld
+   //button1.whenHeld
   }
 
   /**

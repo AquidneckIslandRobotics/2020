@@ -48,6 +48,7 @@ public class Turret extends SubsystemBase {
   public Turret() {
     turretServo.setNeutralMode(NeutralMode.Brake);
     turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
+   // topTurretWheel
   }
 
   public double getLimelightX() {
@@ -94,6 +95,7 @@ public class Turret extends SubsystemBase {
   }
 
 public void startWheel() {
-  turretwheel.set(ControlMode.PercentOutput, .5);
+  turretWheel.set(ControlMode.PercentOutput, .5);
+
 }
 }

@@ -18,8 +18,9 @@ import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SensorTerm;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+import com.ctre.phoenix.motorcontrol.InvertType; 
 
 public class Drive extends SubsystemBase {
   WPI_TalonFX leftLeader = new WPI_TalonFX(Constants.LeftLeader);
@@ -38,8 +39,10 @@ public class Drive extends SubsystemBase {
    leftFollower1.follow(leftLeader);
    rightFollower1.configFactoryDefault();
    rightFollower1.follow(rightLeader);
-   leftLeader.setInverted(true);
-   leftFollower1.setInverted(true);
+
+
+ //  leftLeader.setInverted(true);
+   //leftFollower1.setInverted(true);
   
 
    double speed = 0.5;
@@ -48,7 +51,6 @@ public class Drive extends SubsystemBase {
    diffDrive.curvatureDrive(speed, rotation, quickTurn);
 
 
-  leftLeader.follow(rightLeader);
 
 
    //testMotor.configFactoryDefault();
@@ -60,10 +62,26 @@ leftLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.PI
     rightLeader.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, Constants.PID_PRIMARY, Constants.kTimeoutMs);
    rightLeader.configSelectedFeedbackCoefficient(0.5, Constants.PID_PRIMARY, Constants.kTimeoutMs); 
    rightLeader.configNeutralDeadband(.001, 30);
-   leftLeader.setInverted(true);
-   leftLeader.setSensorPhase(true);
-   rightLeader.setSensorPhase(false);
-   rightLeader.setInverted(false);
+
+  // leftLeader.setInverted(true);
+  // leftLeader.setSensorPhase(true);
+   // rightLeader.setSensorPhase(false);
+   // rightLeader.setInverted(false);
+
+   leftLeader.follow(rightLeader);
+
+rightLeader.setInverted(true); 
+leftLeader.setInverted(false); 
+
+rightFollower1.setInverted(InvertType.FollowMaster); 
+leftFollower1.setInverted(InvertType.FollowMaster); 
+
+rightLeader.setSensorPhase(true); 
+leftLeader.setSensorPhase(true); 
+
+diffDrive.setRightSideInverted(false);
+
+
    //testMotor.setInverted(true);
    rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 30);
    rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 10, 30);

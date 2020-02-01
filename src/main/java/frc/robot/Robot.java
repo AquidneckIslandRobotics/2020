@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
     Button driverA = new JoystickButton(RobotContainer.drivingJoystick1, 1);
 
     m_robotContainer = new RobotContainer();
-    m_turret.setDefaultCommand(new TurretTurn());
+    m_turret.setDefaultCommand(new TurretTurn()); 
    //m_drive.setDefaultCommand(new DefaultDrive(m_drive, RobotContainer.drivingJoystick1, driverA));
     m_drive.setDefaultCommand(new DefaultDrive(m_drive, RobotContainer.drivingJoystick1, driverA));
     //m_turret.lightsOff();
