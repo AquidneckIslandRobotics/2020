@@ -30,6 +30,7 @@ public class Drive extends SubsystemBase {
   WPI_TalonFX rightFollower = new WPI_TalonFX(Constants.RightFollower);
    
     DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
+    
   /**
    * Creates a new Drive.
    */
@@ -43,7 +44,7 @@ public class Drive extends SubsystemBase {
 
    double speed = 0.5;
    double rotation = 0.5;
-   boolean quickTurn = true;
+   boolean quickTurn = true;  
    //diffDrive.curvatureDrive(speed, rotation, quickTurn);
 
 
@@ -96,7 +97,7 @@ leftLeader.configFactoryDefault();
 
    rightLeader.setSelectedSensorPosition(0, 0, 30);
   }
-  public void curvatureDrive(double speed, double rotation, boolean quickTurn){
+  public void curvatureDrive(double speed, double rotation, boolean quickTurn) {
     //diffDrive.curvatureDrive(speed, rotation, quickTurn);
   }
   public void setPoint(double rotation){

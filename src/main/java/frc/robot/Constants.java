@@ -22,15 +22,15 @@ public final class Constants {
     //the numbers are also where they will be plugged in on the PDP
 
     //Driving Motors 
-    public static final int LeftLeader = 14;
-    public static final int LeftFollower = 15;
+    public static final int LeftLeader = 2; //this should be 14
+    public static final int LeftFollower = 1; //this should be 15
     
-    public static final int RightLeader = 1;
-    public static final int RightFollower = 0;
+    public static final int RightLeader = 3; //this should be 1
+    public static final int RightFollower = 4; //this shoudl be 0
 
     //Shooter Motors 
-    public static final int RightShooter = 2; 
-    public static final int LeftShooter = 3; 
+    public static final int RightShooter = 20;  //this should be ID 2
+    public static final int LeftShooter = 30; //this should be ID 3 
     public static final int HoodAngle = 4; 
     public static final int TurretRotate = 5; 
     //Lime light does not get its own motor port, but is plugged into the PDP

@@ -134,6 +134,10 @@ public class RobotContainer {
     else return rotation; 
   }
 
+  public boolean getQuickTurn() {
+    return driverRB.get(); 
+  }
+
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
