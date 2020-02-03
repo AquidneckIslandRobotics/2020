@@ -94,17 +94,23 @@ public class Turret extends SubsystemBase {
 
   public void setSpeed(double speed){
     turretServo.set(ControlMode.PercentOutput, speed);
+    
  }
   public void stopTurret(){
     turretServo.set(ControlMode.PercentOutput, 0);
+    
   }
 
 public void startWheel() {
-  turretWheel1.set(ControlMode.PercentOutput, .75);
-  turretWheel2.set(ControlMode.PercentOutput, .75);
+  turretWheel1.set(ControlMode.PercentOutput, .90);
+  turretWheel2.set(ControlMode.PercentOutput, .90);
+  // turretWheel1.set(ControlMode.Velocity, 15750);
+  // turretWheel2.set(ControlMode.Velocity, 15750);
 }
 public void stopWheel() {
   turretWheel1.set(ControlMode.PercentOutput, 0);
   turretWheel2.set(ControlMode.PercentOutput, 0);
+  //turretWheel1.set(ControlMode.Velocity, 0);
+  //turretWheel2.set(ControlMode.Velocity, 0);
 }
 }
