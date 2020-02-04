@@ -27,6 +27,8 @@ public class Drive extends SubsystemBase {
     WPI_TalonFX rightLeader = new WPI_TalonFX(Constants.RightLeader);
     WPI_TalonFX rightFollower1 = new WPI_TalonFX(Constants.RightFollower1);
     DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
+
+    boolean forward = true;
   /**
    * Creates a new Drive.
    */
@@ -118,5 +120,10 @@ leftLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.PI
   }
   public void resetEncoder(){
     rightLeader.setSelectedSensorPosition(0);
+  }
+  public void flipDirection(){
+    leftLeader.setInverted(!forward);
+    rightLeader.setInverted(forward);
+    forward = !forward;    
   }
 }

@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Turret;
 import frc.robot.commands.SpinWheel;
+import frc.robot.commands.FlipDirection;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -55,12 +56,12 @@ public class RobotContainer {
 
   Button button = new JoystickButton(drivingJoystick1, 6);
   Button button1 = new JoystickButton(drivingJoystick1, 4);
-  Button button5 = new JoystickButton(drivingJoystick1, 5);
+  Button button8 = new JoystickButton(drivingJoystick1, 8);
   Button driverA = new JoystickButton(drivingJoystick1, 1);
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
   Button testButton = new JoystickButton(drivingJoystick1, 7); 
-
+  Button LB = new JoystickButton(drivingJoystick1, 5);
 
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 
@@ -132,7 +133,8 @@ public class RobotContainer {
    colorB.whenPressed(new AutoColor("Red"));
    colorX.whenPressed(new AutoColor("Blue"));
    colorY.whenPressed(new AutoColor("Yellow"));
-   button5.whenHeld(new SpinWheel(Robot.m_turret));
+   button8.whenHeld(new SpinWheel(Robot.m_turret));
+   LB.whenPressed(new FlipDirection(Robot.m_drive));
   }
 
   /**
