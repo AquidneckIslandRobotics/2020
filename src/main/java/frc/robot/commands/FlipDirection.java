@@ -13,17 +13,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
 public class FlipDirection extends CommandBase {
-  private XboxController m_Joystick;
-  private Button m_button;
   private Drive drive;
   
   /**
    * Creates a new FlipDirection.
    */
-  public FlipDirection(Drive drive, XboxController Joy, Button button) {
+  public FlipDirection(Drive drive) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Joystick = Joy;
-    m_button = button;
     this.drive = drive;
     addRequirements(drive);
   }
