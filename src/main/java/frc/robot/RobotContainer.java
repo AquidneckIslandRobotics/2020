@@ -18,7 +18,9 @@ import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveTo;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TurretTarget;
+import frc.robot.commands.TurretTurn;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -34,6 +36,7 @@ import frc.robot.commands.FlipDirection;
  */
 public class RobotContainer {
 
+  public static XboxController manipulatorJoystick = new XboxController(0); 
   public static XboxController drivingJoystick1 = new XboxController(1);
   public static XboxController colorJoystick = new XboxController(2);
 
@@ -51,18 +54,30 @@ public class RobotContainer {
     
   }
 
-  
+  public static double rightXm() {
+    //Get raw value from joystick
+    double rightXmm = manipulatorJoystick.getX(Hand.kRight);
+    //Check for deadzone
+    if (Math.abs(rightXmm) < 0.05) {
+      rightXmm = 0;
+    }
+    //Return adjusted value
+    return rightXmm;
+  }
   
 
   Button button = new JoystickButton(drivingJoystick1, 6);
   Button button1 = new JoystickButton(drivingJoystick1, 4);
-  Button button8 = new JoystickButton(drivingJoystick1, 8);
   Button driverA = new JoystickButton(drivingJoystick1, 1);
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
-  Button testButton = new JoystickButton(drivingJoystick1, 7); 
+  Button driverRB = new JoystickButton(drivingJoystick1, 6); 
+  Button testButton = new JoystickButton(drivingJoystick1, 9); 
   Button LB = new JoystickButton(drivingJoystick1, 5);
+  Button RT = new JoystickButton(drivingJoystick1, 7);
 
+  Button manipulatorB = new JoystickButton(manipulatorJoystick, 2); 
+  Button manipulatorX = new JoystickButton(manipulatorJoystick, 3); 
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 
   Button colorA = new JoystickButton(colorJoystick, 1);
@@ -81,6 +96,8 @@ public class RobotContainer {
   //public final ColorSensor m_colorsensor = new ColorSensor(); 
   // public final DriveTo m_auto = new DriveTo(m_drive, -10);
   // public final Turret m_turret = new Turret();
+
+  public final Turret m_turret = new Turret(); 
 
 
   /**
@@ -101,6 +118,12 @@ public class RobotContainer {
     driverA.whileHeld(new TurretTarget()); 
     // m_drive.setDefaultCommand(new driveTest(m_drive));
     
+    //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+   // m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
+    button1.whenPressed(new DriveTo(Robot.m_drive, 8));
+     
+   // m_turret.setDefaultCommand(new TurretTurn(m_turret));
+
     
   }
 
@@ -116,6 +139,10 @@ public class RobotContainer {
     else return rotation; 
   }
 
+  public boolean getQuickTurn() {
+    return driverRB.get(); 
+  }
+
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -124,6 +151,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     driverA.whileHeld(new TurretTarget());
+
+    manipulatorB.whileHeld(new TurretTurn(m_turret, .5)); 
+    manipulatorX.whileHeld(new TurretTurn(m_turret, -.5)); 
    // driverX.whenPressed(new LightsOn());
     driverStart.whenPressed(new ColorSpinThree());
     driverBack.whileHeld(new ColorSpinTarget());
@@ -133,7 +163,7 @@ public class RobotContainer {
    colorB.whenPressed(new AutoColor("Red"));
    colorX.whenPressed(new AutoColor("Blue"));
    colorY.whenPressed(new AutoColor("Yellow"));
-   button8.whenHeld(new SpinWheel(Robot.m_turret));
+   RT.whenHeld(new SpinWheel(Robot.m_turret));
    LB.whenPressed(new FlipDirection(Robot.m_drive));
   }
 
