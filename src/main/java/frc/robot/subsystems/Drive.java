@@ -28,6 +28,8 @@ public class Drive extends SubsystemBase {
     WPI_TalonFX rightLeader = new WPI_TalonFX(Constants.RightLeader);
     WPI_TalonFX rightFollower1 = new WPI_TalonFX(Constants.RightFollower1);
     DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
+
+    public boolean yeeting = false;
   /**
    * Creates a new Drive.
    */
@@ -59,7 +61,7 @@ leftLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.PI
    rightLeader.configRemoteFeedbackFilter(leftLeader.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, Constants.REMOTE_0, Constants.kTimeoutMs);
    rightLeader.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor0, Constants.kTimeoutMs);
    rightLeader.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Absolute, Constants.kTimeoutMs);
-    rightLeader.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, Constants.PID_PRIMARY, Constants.kTimeoutMs);
+   rightLeader.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, Constants.PID_PRIMARY, Constants.kTimeoutMs);
    rightLeader.configSelectedFeedbackCoefficient(0.5, Constants.PID_PRIMARY, Constants.kTimeoutMs); 
    rightLeader.configNeutralDeadband(.001, 30);
 

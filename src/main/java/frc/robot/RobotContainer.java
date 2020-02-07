@@ -18,11 +18,13 @@ import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveTo;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TurretTarget;
+import frc.robot.commands.Unyeet;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.subsystems.Drive;
+import frc.robot.commands.YeetButton;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -47,15 +49,17 @@ public class RobotContainer {
 
     
   }
+  
 
   
   
 
   Button button = new JoystickButton(drivingJoystick1, 6);
-  Button button1 = new JoystickButton(drivingJoystick1, 4);
+  Button button1 = new JoystickButton(drivingJoystick1, 8); //this button number needs to be rechecked. Not on right button
   Button driverA = new JoystickButton(drivingJoystick1, 1);
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
+  Button driverY = new JoystickButton(drivingJoystick1, 4);
   Button testButton = new JoystickButton(drivingJoystick1, 7); 
 
 
@@ -90,10 +94,13 @@ public class RobotContainer {
     //m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
     button1.whenPressed(new DriveTo(m_drive, Constants.DRIVE_DISTANCE));
      
-       m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+    m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
 
    //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     driverA.whileHeld(new TurretTarget()); 
+
+    driverY.whenPressed(new YeetButton()); 
+    driverY.whenReleased(new Unyeet()); 
     // m_drive.setDefaultCommand(new driveTest(m_drive));
     
     
@@ -102,14 +109,28 @@ public class RobotContainer {
   public double getSpeed() {
     double speed = drivingJoystick1.getY(Hand.kLeft); 
     if(Math.abs(speed) < 0.12 ) return 0; 
-    else return speed; 
+    else if(Robot.m_drive.yeeting) {
+      if ( speed > 0) return Math.pow(speed, 2);
+      else return -Math.pow(speed, 2);
+    } else{
+      if(speed > 0) return Math.pow(speed, 2) * 0.5; //this should go half speed.
+      else return -Math.pow(speed, 2) * 0.5; 
+    }
+    
   }
 
   public double getRotation() {
     double rotation = -drivingJoystick1.getX(Hand.kRight); 
     if(Math.abs(rotation) < 0.12) return 0; 
-    else return rotation; 
+    else if(Robot.m_drive.yeeting) {
+      if ( rotation > 0) return Math.pow(rotation, 2) * 0.5;
+      else return -Math.pow(rotation, 2) * 0.5;
+    } else {
+      if ( rotation > 0) return Math.pow(rotation, 2) * 0.5;
+      else return -Math.pow(rotation, 2) * 0.5;
+    }
   }
+
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
