@@ -8,38 +8,42 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
+import frc.robot.subsystems.Drive;
+
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 
-public class ColorSpinTarget extends CommandBase {
-  public String dColor = "unknown";
+public class YEET extends CommandBase {
+  WPI_TalonFX leftLeader = new WPI_TalonFX(Constants.LeftLeader);
+  WPI_TalonFX leftFollower = new WPI_TalonFX(Constants.LeftFollower);
+    
+  WPI_TalonFX rightLeader = new WPI_TalonFX(Constants.RightLeader);
+  WPI_TalonFX rightFollower = new WPI_TalonFX(Constants.RightFollower);
   /**
-   * Creates a new ColorSpinTarget.
+   * Creates a new YEET.
    */
-  public ColorSpinTarget() {
+  public YEET() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    dColor = Robot.m_colorsensor.getDetectedColor();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    dColor = Robot.m_colorsensor.getDetectedColor();
-    SmartDashboard.putString("Detected Color", dColor);
-    Robot.m_colorsensor.controlPanel.set(ControlMode.PercentOutput, .2);
+    rightLeader.set(ControlMode.PercentOutput, 1);
+    leftLeader.set(ControlMode.PercentOutput, 1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.m_colorsensor.controlPanel.set(ControlMode.PercentOutput, 0);
   }
 
   // Returns true when the command should end.

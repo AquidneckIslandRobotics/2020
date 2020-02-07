@@ -23,12 +23,12 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.TurretTurn;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.subsystems.ColorSensor;
-import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import com.revrobotics.ColorSensorV3;
+import frc.robot.subsystems.Drive;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -38,8 +38,7 @@ import com.revrobotics.ColorSensorV3;
 public class Robot extends TimedRobot {
   
   public static Turret m_turret = new Turret();
- 
-
+  //Button buttonT = new JoystickButton(RobotContainer.manipulatorJoystick, 3);
   public static ColorSensor m_colorsensor = new ColorSensor();
   public static Drive m_drive = new Drive();
 
@@ -60,9 +59,8 @@ public class Robot extends TimedRobot {
     Button driverA = new JoystickButton(RobotContainer.drivingJoystick1, 1);
 
     m_robotContainer = new RobotContainer();
-   
-    // m_turret.setDefaultCommand(new TurretTurn(m_turret));
-   m_turret.setDefaultCommand(new TurretTurn(m_turret, 0));
+   // m_turret.setDefaultCommand(new TurretTurn(m_turret));
+    m_turret.setDefaultCommand(new TurretTurn(m_turret, 0));
    //m_drive.setDefaultCommand(new DefaultDrive(m_drive, RobotContainer.drivingJoystick1, driverA));
     m_drive.setDefaultCommand(new DefaultDrive(m_drive, RobotContainer.drivingJoystick1, driverA));
     //m_turret.lightsOff();

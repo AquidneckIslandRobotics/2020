@@ -7,39 +7,54 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
+import frc.robot.Constants;
+import frc.robot.subsystems.Turret;
 
-public class ColorSpinTarget extends CommandBase {
-  public String dColor = "unknown";
+
+public class Shoot extends CommandBase {
+  WPI_TalonFX rightShooter = new WPI_TalonFX(Constants.RightShooter);
+  WPI_TalonFX leftShooter = new WPI_TalonFX(Constants.LeftShooter);
+  private XboxController m_Joystick;
+  private Button m_button;
+  private Turret turret;
+  
+  
   /**
-   * Creates a new ColorSpinTarget.
+   * Creates a new Shoot.
    */
-  public ColorSpinTarget() {
+  public Shoot(Turret turret, XboxController Joy, Button button) {
+    m_Joystick = Joy;
+    m_button = button;
+    this.turret = turret;
+    addRequirements(turret);
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    dColor = Robot.m_colorsensor.getDetectedColor();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    dColor = Robot.m_colorsensor.getDetectedColor();
-    SmartDashboard.putString("Detected Color", dColor);
-    Robot.m_colorsensor.controlPanel.set(ControlMode.PercentOutput, .2);
+    turret.startWheel();
+
+
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.m_colorsensor.controlPanel.set(ControlMode.PercentOutput, 0);
   }
 
   // Returns true when the command should end.

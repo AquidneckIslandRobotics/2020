@@ -18,26 +18,48 @@ import com.ctre.phoenix.motorcontrol.InvertType;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int LeftLeader = 2;
-    public static final int LeftFollower1 = 1;
-    //public static final int LeftFollower2 = 21;
-    public static final int RightLeader = 3;
-    public static final int RightFollower1 = 4;
-    //public static final int RightFollower2 = 16;
-    public static final int LeftElevator = 5;
-    public static final int RightElevator = 10;
+    //the numbers are what the CAN ID Numbers MUST be. They have not be changed as of Feb 1st 2020
+    //the numbers are also where they will be plugged in on the PDP
+
+    //Driving Motors -- will be using Talons  
+    public static final int LeftLeader = 14; 
+    public static final int LeftFollower = 15;
+    
+    public static final int RightLeader = 1; 
+    public static final int RightFollower = 16;
+
+    //Shooter Motors -- will be using Talons
+    public static final int RightShooter = 2;
+    public static final int LeftShooter = 3;  
+    public static final int HoodAngle = 4; 
+    public static final int TurretRotate = 5; 
+    //Lime light does not get its own motor port, but is plugged into the PDP
+
+    //Hopper Motors
+    public static final int HopperRight = 6; 
+    public static final int HopperLeft = 9; 
+    public static final int Feed = 10; 
+
+    //Intake Motors
+    public static final int RightIntake = 7; 
+    public static final int LeftIntake = 8; 
+
+    //Control Panel 
+    public static final int ControlPanel = 11; 
+    
+    //Climbing 
+    public static final int Climber = 13; 
 
 
-    public static final int TurretServo = 6;
+    
 	public static boolean kSensorPhase = false;
 	public static int kTimeoutMs = 0;
 	public static int kPIDLoopIdx = 0;
     public static boolean kMotorInvert = false;
 
-    public static final int ColorMotor = 7; 
+    
     
     //Encoders
-   // public static final int TurretEncoder = 0;
     public static final double DRIVE_DISTANCE = -14;
 	public static final int PID_PRIMARY = 0;
     public static final int REMOTE_0 = 0; 

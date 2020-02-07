@@ -17,8 +17,10 @@ import frc.robot.commands.ColorSpinThree;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveTo;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.FlipDirection;
 import frc.robot.commands.TurretTarget;
 import frc.robot.commands.TurretTurn;
+import frc.robot.commands.YEET;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,6 +30,7 @@ import frc.robot.subsystems.Drive;
 import frc.robot.commands.TurretTarget;
 import frc.robot.commands.ColorSpinThree;
 import frc.robot.commands.AutoColor; 
+import frc.robot.commands.FlipDirection;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -67,25 +70,32 @@ public class RobotContainer {
   
 
   Button button = new JoystickButton(drivingJoystick1, 6);
-  Button button1 = new JoystickButton(drivingJoystick1, 4);
+  Button driverY = new JoystickButton(drivingJoystick1, 4);
   Button driverA = new JoystickButton(drivingJoystick1, 1);
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
-  
-
-  Button manipulatorX = new JoystickButton(manipulatorJoystick, 3); 
-  Button manipulatorB = new JoystickButton(manipulatorJoystick, 2); 
-
-  Button colorA = new JoystickButton(colorJoystick, 1); //will call Green
-  Button colorB = new JoystickButton(colorJoystick, 2); //Will call red 
-  Button colorX = new JoystickButton(colorJoystick, 3); // Will call Blue 
-  Button colorY = new JoystickButton(colorJoystick, 4); //Will call yellow
+  Button driverLB = new JoystickButton(drivingJoystick1, 5); 
+  Button driverRB = new JoystickButton(drivingJoystick1, 6); 
   Button testButton = new JoystickButton(drivingJoystick1, 7); 
 
 
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
-  Button driverStart = new JoystickButton(colorJoystick, 8);
-  Button driverBack = new JoystickButton(colorJoystick, 7);
+  
+
+  Button manipulatorB = new JoystickButton(manipulatorJoystick, 2); 
+  Button manipulatorX = new JoystickButton(manipulatorJoystick, 3); 
+  Button manipulatorY = new JoystickButton(manipulatorJoystick, 4); 
+
+
+
+  Button colorA = new JoystickButton(colorJoystick, 1); 
+  Button colorB = new JoystickButton(colorJoystick, 2); 
+  Button colorX = new JoystickButton(colorJoystick, 3); 
+  Button colorY = new JoystickButton(colorJoystick, 4); 
+  Button driverStart = new JoystickButton(colorJoystick, 8); 
+  Button driverBack = new JoystickButton(colorJoystick, 7); 
+
+
   // A is green, B is red, X is blue and Y is yellow.
 
   // The robot's subsystems and commands are defined here...
@@ -109,24 +119,23 @@ public class RobotContainer {
     configureButtonBindings();
     //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     //m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
-    button1.whenPressed(new DriveTo(m_drive, Constants.DRIVE_DISTANCE));
+    manipulatorY.whenPressed(new DriveTo(m_drive, Constants.DRIVE_DISTANCE));
      
+       m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
 
-   // m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
-    driverA.whileHeld(new TurretTarget()); 
+   //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     driverA.whileHeld(new TurretTarget()); 
     // m_drive.setDefaultCommand(new driveTest(m_drive));
-
     
     //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
-    button1.whenPressed(new DriveTo(m_drive, 8));
+    manipulatorY.whenPressed(new DriveTo(m_drive, 8));
      
    // m_turret.setDefaultCommand(new TurretTurn(m_turret));
 
     
   }
 
-  public double getSpeed() {
+  public static double getSpeed() {
     double speed = drivingJoystick1.getY(Hand.kLeft); 
     if(Math.abs(speed) < 0.12 ) return 0; 
     else return speed; 
@@ -136,6 +145,10 @@ public class RobotContainer {
     double rotation = -drivingJoystick1.getX(Hand.kRight); 
     if(Math.abs(rotation) < 0.12) return 0; 
     else return rotation; 
+  }
+
+  public boolean getQuickTurn() {
+    return driverRB.get(); 
   }
 
   /**
@@ -156,7 +169,7 @@ public class RobotContainer {
    // driverX.whenPressed(new LightsOn());
     driverStart.whenPressed(new ColorSpinThree());
     driverBack.whileHeld(new ColorSpinTarget()); 
-
+    driverLB.whenPressed(new FlipDirection(Robot.m_drive)); 
     colorA.whenPressed(new AutoColor("green"));
     
     
@@ -166,6 +179,10 @@ public class RobotContainer {
    colorB.whenPressed(new AutoColor("Red"));
    colorX.whenPressed(new AutoColor("Blue"));
    colorY.whenPressed(new AutoColor("Yellow"));
+
+
+   //yeet
+   driverY.whileHeld(new YEET());
   }
 
   /**

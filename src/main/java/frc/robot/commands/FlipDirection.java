@@ -8,37 +8,30 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Drive;
 
-
-public class ElevatorDrive extends CommandBase {
-  private Elevator m_elevator;
-  private XboxController m_joystick;
+public class FlipDirection extends CommandBase {
+  private Drive drive; 
   /**
-   * Creates a new ElevatorDrive.
+   * Creates a new FlipDirection.
    */
-  public ElevatorDrive(Elevator elevator, XboxController joystick) {
-    m_elevator = elevator;
-    m_joystick = joystick;
-    addRequirements(elevator);
-
-
+  public FlipDirection(Drive drive) {
+    this.drive = drive; 
+    addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  //dad is actually dpad.
   @Override
   public void execute() {
-    int dad; //dad means DPAD on the controller 
-    dad = m_joystick.getPOV(); 
+   // drive.flipDirection();
   }
 
   // Called once the command ends or is interrupted.

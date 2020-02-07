@@ -36,14 +36,17 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;  
 
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 
 
 public class Turret extends SubsystemBase {
-
-  //Faults _faults = new Faults(); 
- // public static TalonSRX turretServo = new TalonSRX(Constants.TurretServo);
-
-
+  public static TalonSRX turretRotate = new TalonSRX(Constants.TurretRotate);
+  public static WPI_TalonFX turretWheel = new WPI_TalonFX(Constants.LeftShooter);
   //public static Encoder turretEncoder = new Encoder(Constants.TurretEncoder); 
   public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   public NetworkTableEntry tx = table.getEntry("tx");
@@ -51,7 +54,7 @@ public class Turret extends SubsystemBase {
   NetworkTableEntry ta = table.getEntry("ta");
 
   //public CANSparkMax turretServo; 
-  public TalonSRX turretServo; 
+
    
 
 
@@ -78,10 +81,10 @@ public class Turret extends SubsystemBase {
     m_pidController = turretServo.getPIDController(); 
     m_pidController.setFeedbackDevice(m_analogSensor); 
     */ 
-    turretServo = new TalonSRX(Constants.talonsrxturret); 
-    turretServo.setSensorPhase(false);
-    turretServo.setInverted(false);
-    turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    turretRotate = new TalonSRX(Constants.talonsrxturret); 
+    turretRotate.setSensorPhase(false);
+    turretRotate.setInverted(false);
+    turretRotate.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     
    // m_analogSensor = turretServo.;
 
@@ -140,8 +143,8 @@ public class Turret extends SubsystemBase {
     SmartDashboard.putNumber("Turret Set Point", rotations); 
    // SmartDashboard.putNumber("Process Variable Conversion", m_analogSensor.getPositionConversionFactor()); 
    //SmartDashboard.putNumber("Process Variable Get Pos only", m_analogSensor()); 
-  SmartDashboard.putNumber("Sensor Velocity", turretServo.getSelectedSensorVelocity()); 
-    SmartDashboard.putNumber("Sensor Position", turretServo.getSelectedSensorPosition()); 
+  SmartDashboard.putNumber("Sensor Velocity", turretRotate.getSelectedSensorVelocity()); 
+    SmartDashboard.putNumber("Sensor Position", turretRotate.getSelectedSensorPosition()); 
     
    
 
@@ -157,11 +160,15 @@ public class Turret extends SubsystemBase {
   }
 
  public void setSpeed(double speed){
-    turretServo.set(ControlMode.PercentOutput, speed);
+    turretRotate.set(ControlMode.PercentOutput, speed);
     //turretServo.getFaults(_faults); 
   
   }
   public void stopTurret(){
-    turretServo.set(ControlMode.PercentOutput, 0);
-  } 
+    turretRotate.set(ControlMode.PercentOutput, 0);
+  }
+
+public void startWheel() {
+  turretWheel.set(ControlMode.PercentOutput, .5);
+}
 }
