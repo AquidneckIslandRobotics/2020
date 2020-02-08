@@ -18,8 +18,8 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Turret;
 
 public class Shoot extends CommandBase {
-  WPI_TalonFX Shooter1 = new WPI_TalonFX(Constants.Shooter1);
-  WPI_TalonFX Shooter2 = new WPI_TalonFX(Constants.Shooter2);
+  WPI_TalonFX rightShooter = new WPI_TalonFX(Constants.RightShooter);
+  WPI_TalonFX leftShooter = new WPI_TalonFX(Constants.LeftShooter);
   private XboxController m_Joystick;
   private Button m_button;
   private Turret turret;

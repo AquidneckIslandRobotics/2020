@@ -46,7 +46,7 @@ public class ColorSpinThree extends CommandBase {
   public void execute() {
     SmartDashboard.putNumber("rotations", rotations);
     dColor = Robot.m_colorsensor.getDetectedColor();
-    Robot.m_colorsensor.colorMotor.set(ControlMode.PercentOutput, .5);
+    Robot.m_colorsensor.controlPanel.set(ControlMode.PercentOutput, .5);
     if(dColor == sColor){
       if(inbetween == true){
         rotations += .5; 
@@ -60,7 +60,7 @@ public class ColorSpinThree extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.m_colorsensor.colorMotor.set(ControlMode.PercentOutput, 0);
+    Robot.m_colorsensor.controlPanel.set(ControlMode.PercentOutput, 0);
   }
 
   // Returns true when the command should end.
