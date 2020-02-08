@@ -7,37 +7,38 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
-import com.ctre.phoenix.motorcontrol.SensorTerm;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.ControlMode; 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.RemoteSensorSource; 
+import com.ctre.phoenix.motorcontrol.SensorTerm;  
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced; 
+import com.ctre.phoenix.motorcontrol.can.TalonFX; 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX; 
+
+
 
 public class Drive extends SubsystemBase {
-  TalonFX leftLeader = new TalonFX(Constants.LeftLeader);
+ WPI_TalonFX leftLeader = new WPI_TalonFX(Constants.LeftLeader);
   TalonFX leftFollower = new TalonFX(Constants.LeftFollower);
     
-  TalonFX rightLeader = new TalonFX(Constants.RightLeader);
-  TalonFX rightFollower = new TalonFX(Constants.RightFollower);
+  WPI_TalonFX rightLeader = new WPI_TalonFX(Constants.RightLeader);
+  WPI_TalonFX rightFollower = new WPI_TalonFX(Constants.RightFollower);
    
-  //SpeedControllerGroup left = new SpeedControllerGroup(leftLeader, leftFollower);
+ // SpeedControllerGroup left = new SpeedControllerGroup(leftLeader, leftFollower);
   //SpeedControllerGroup right = new SpeedControllerGroup(rightLeader, rightFollower);
-    //DifferentialDrive diffDrive = new DifferentialDrive(leftFollower, rightFollower);
+  DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
+    public boolean yeeting = false; 
     
-    //boolean forward = true; 
+    boolean forward = true; 
   /**
    * Creates a new Drive.
    */
@@ -142,9 +143,9 @@ public class Drive extends SubsystemBase {
   public void resetEncoder(){
     rightLeader.setSelectedSensorPosition(0);
   }
-  // public void flipDirection(){
-  //   leftLeader.setInverted(!forward);
-  //   rightLeader.setInverted(forward);
-  //   forward = !forward;    
-  // }
+   public void flipDirection(){
+   leftLeader.setInverted(!forward);
+   rightLeader.setInverted(forward);
+    forward = !forward;    
+  }
 }

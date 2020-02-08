@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.AutoColor;
@@ -20,17 +19,12 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.FlipDirection;
 import frc.robot.commands.TurretTarget;
 import frc.robot.commands.TurretTurn;
-import frc.robot.commands.YEET;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.subsystems.Drive;
-import frc.robot.commands.TurretTarget;
-import frc.robot.commands.ColorSpinThree;
-import frc.robot.commands.AutoColor; 
-import frc.robot.commands.FlipDirection;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -42,6 +36,7 @@ public class RobotContainer {
   public static XboxController manipulatorJoystick = new XboxController(0); 
   public static XboxController drivingJoystick1 = new XboxController(1);
   public static XboxController colorJoystick = new XboxController(2); 
+  public static XboxController patheticExtraJoystick = new XboxController(5); 
 
 
  public static double getRightX() {
@@ -69,7 +64,7 @@ public class RobotContainer {
   }
   
 
-  Button button = new JoystickButton(drivingJoystick1, 6);
+  
   Button driverY = new JoystickButton(drivingJoystick1, 4);
   Button driverA = new JoystickButton(drivingJoystick1, 1);
   Button driverB = new JoystickButton(drivingJoystick1, 2);
@@ -95,6 +90,7 @@ public class RobotContainer {
   Button driverStart = new JoystickButton(colorJoystick, 8); 
   Button driverBack = new JoystickButton(colorJoystick, 7); 
 
+  Button patheticExtraButton = new JoystickButton(patheticExtraJoystick, 3); 
 
   // A is green, B is red, X is blue and Y is yellow.
 
@@ -121,7 +117,7 @@ public class RobotContainer {
     //m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
     manipulatorY.whenPressed(new DriveTo(m_drive, Constants.DRIVE_DISTANCE));
      
-       m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+       m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, patheticExtraButton));
 
    //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     driverA.whileHeld(new TurretTarget()); 
@@ -138,13 +134,26 @@ public class RobotContainer {
   public static double getSpeed() {
     double speed = drivingJoystick1.getY(Hand.kLeft); 
     if(Math.abs(speed) < 0.12 ) return 0; 
-    else return speed; 
+    else if(Robot.m_drive.yeeting) {
+      if (speed > 0) return Math.pow(speed, 2); 
+      else return -Math.pow(speed, 2); 
+    } else {
+      if(speed > 0) return Math.pow(speed, 2) * 0.5; // this should be going half speed
+      else return -Math.pow(speed, 2) * 0.5; 
+    }
+    
   }
 
   public double getRotation() {
     double rotation = -drivingJoystick1.getX(Hand.kRight); 
     if(Math.abs(rotation) < 0.12) return 0; 
-    else return rotation; 
+    else if(Robot.m_drive.yeeting) {
+      if (rotation > 0) return Math.pow(rotation, 2) * 0.5; 
+      else return -Math.pow(rotation, 2) *0.5; 
+    } else {
+      if (rotation > 0) return Math.pow(rotation, 2) * 0.5; 
+      else return -Math.pow(rotation, 2) * 0.5; 
+    }
   }
 
   public boolean getQuickTurn() {
@@ -159,6 +168,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     driverA.whileHeld(new TurretTarget());
+
+    driverY.whenPressed(new YeetButton()); 
+    driverY.whenReleased(new Unyeet()); 
 
     manipulatorB.whileHeld(new TurretTurn(m_turret, .5)); 
     manipulatorX.whileHeld(new TurretTurn(m_turret, -.5)); 
@@ -182,7 +194,7 @@ public class RobotContainer {
 
 
    //yeet
-   driverY.whileHeld(new YEET());
+  
   }
 
   /**
