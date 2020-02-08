@@ -25,6 +25,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.subsystems.Drive;
 import frc.robot.commands.YeetButton;
+import frc.robot.subsystems.Turret;
+import frc.robot.commands.SpinWheel;
+import frc.robot.commands.FlipDirection;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -55,13 +58,14 @@ public class RobotContainer {
   
 
   Button button = new JoystickButton(drivingJoystick1, 6);
-  Button button1 = new JoystickButton(drivingJoystick1, 8); //this button number needs to be rechecked. Not on right button
+  Button button1 = new JoystickButton(drivingJoystick1, 4);
+  Button button8 = new JoystickButton(drivingJoystick1, 8);
   Button driverA = new JoystickButton(drivingJoystick1, 1);
   Button driverB = new JoystickButton(drivingJoystick1, 2);
   Button driverX = new JoystickButton(drivingJoystick1, 3);
   Button driverY = new JoystickButton(drivingJoystick1, 4);
   Button testButton = new JoystickButton(drivingJoystick1, 7); 
-
+  Button LB = new JoystickButton(drivingJoystick1, 5);
 
   //Button leftYstick = new JoystickButton(drivingJoystick1, 2);
 
@@ -77,9 +81,10 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  public final Drive m_drive = new Drive();
+  // public final Drive m_drive = new Drive();
   //public final ColorSensor m_colorsensor = new ColorSensor(); 
-  public final DriveTo m_auto = new DriveTo(m_drive, -10);
+  // public final DriveTo m_auto = new DriveTo(m_drive, -10);
+  // public final Turret m_turret = new Turret();
 
 
   /**
@@ -92,9 +97,9 @@ public class RobotContainer {
     configureButtonBindings();
     //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     //m_drive.setDefaultCommand(new DriveTo(m_drive, 100));
-    button1.whenPressed(new DriveTo(m_drive, Constants.DRIVE_DISTANCE));
+    button1.whenPressed(new DriveTo(Robot.m_drive, Constants.DRIVE_DISTANCE));
      
-    m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
+    Robot.m_drive.setDefaultCommand(new DefaultDrive(Robot.m_drive, drivingJoystick1, button));
 
    //m_drive.setDefaultCommand(new DefaultDrive(m_drive, drivingJoystick1, button));
     driverA.whileHeld(new TurretTarget()); 
@@ -144,12 +149,13 @@ public class RobotContainer {
     driverStart.whenPressed(new ColorSpinThree());
     driverBack.whileHeld(new ColorSpinTarget());
    //driverX.whenReleased(new LightsOff()); these lines aren't needed bc the limelight already turns off after A is released
-    testButton.whenHeld(new DriveTo(m_drive, 5));
+    testButton.whenHeld(new DriveTo(Robot.m_drive, 5));
    colorA.whenPressed(new AutoColor("Green"));
    colorB.whenPressed(new AutoColor("Red"));
    colorX.whenPressed(new AutoColor("Blue"));
    colorY.whenPressed(new AutoColor("Yellow"));
-   //button1.whenHeld
+   button8.whenHeld(new SpinWheel(Robot.m_turret));
+   LB.whenPressed(new FlipDirection(Robot.m_drive));
   }
 
   /**

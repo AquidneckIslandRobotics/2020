@@ -7,33 +7,17 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Turret;
 
-public class Shoot extends CommandBase {
-  WPI_TalonFX Shooter1 = new WPI_TalonFX(Constants.Shooter1);
-  WPI_TalonFX Shooter2 = new WPI_TalonFX(Constants.Shooter2);
-  private XboxController m_Joystick;
-  private Button m_button;
-  private Turret turret;
-  
-  
+public class SpinWheel extends CommandBase {
+  Turret turret;
   /**
-   * Creates a new Shoot.
+   * Creates a new SpinWheel.
    */
-  public Shoot(Turret turret, XboxController Joy, Button button) {
-    m_Joystick = Joy;
-    m_button = button;
+  public SpinWheel(Turret turret) {
     this.turret = turret;
     addRequirements(turret);
-
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -46,17 +30,12 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
     turret.startWheel();
-    
-
-    
-
-
-
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    turret.stopWheel();
   }
 
   // Returns true when the command should end.

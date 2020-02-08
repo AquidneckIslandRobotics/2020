@@ -30,6 +30,7 @@ public class Drive extends SubsystemBase {
     DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
 
     public boolean yeeting = false;
+    boolean forward = true;
   /**
    * Creates a new Drive.
    */
@@ -131,12 +132,17 @@ diffDrive.setRightSideInverted(false);
   public void periodic() {
     SmartDashboard.putString("Mode",rightLeader.getControlMode().toString());
     SmartDashboard.putData("Drive", this);
-    System.out.println("accel"+rightLeader.getSelectedSensorVelocity());
+    //System.out.println("accel"+rightLeader.getSelectedSensorVelocity());
     //double x = SmartDashboard.getNumber("SetPoing", 0);
     //rightLeader.set(ControlMode.MotionMagic, 15000);
     // This method will be called once per scheduler run
   }
   public void resetEncoder(){
     rightLeader.setSelectedSensorPosition(0);
+  }
+  public void flipDirection(){
+    leftLeader.setInverted(!forward);
+    rightLeader.setInverted(forward);
+    forward = !forward;    
   }
 }

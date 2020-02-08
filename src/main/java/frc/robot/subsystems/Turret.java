@@ -31,8 +31,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Turret extends SubsystemBase {
-  public static TalonSRX turretServo = new TalonSRX(Constants.TurretServo);
-  public static WPI_TalonFX turretWheel = new WPI_TalonFX(Constants.TurretWheel);
+  public static WPI_TalonFX turretServo = new WPI_TalonFX(Constants.TurretServo);
+  public static WPI_TalonFX turretWheel1 = new WPI_TalonFX(Constants.TurretWheel1);
+  public static WPI_TalonFX turretWheel2 = new WPI_TalonFX(Constants.TurretWheel2);
   //public static Encoder turretEncoder = new Encoder(Constants.TurretEncoder); 
   public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   public NetworkTableEntry tx = table.getEntry("tx");
@@ -47,8 +48,12 @@ public class Turret extends SubsystemBase {
    */
   public Turret() {
     turretServo.setNeutralMode(NeutralMode.Brake);
-    turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
-   // topTurretWheel
+    turretServo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+    
+    turretWheel1.configFactoryDefault();
+    turretWheel2.configFactoryDefault();
+    // turretWheel2.follow(turretWheel1);
+    turretWheel1.setInverted(true);
   }
 
   public double getLimelightX() {
@@ -89,13 +94,23 @@ public class Turret extends SubsystemBase {
 
   public void setSpeed(double speed){
     turretServo.set(ControlMode.PercentOutput, speed);
-  }
+    
+ }
   public void stopTurret(){
     turretServo.set(ControlMode.PercentOutput, 0);
+    
   }
 
 public void startWheel() {
-  turretWheel.set(ControlMode.PercentOutput, .5);
-
+  turretWheel1.set(ControlMode.PercentOutput, .90);
+  turretWheel2.set(ControlMode.PercentOutput, .90);
+  // turretWheel1.set(ControlMode.Velocity, 15750);
+  // turretWheel2.set(ControlMode.Velocity, 15750);
+}
+public void stopWheel() {
+  turretWheel1.set(ControlMode.PercentOutput, 0);
+  turretWheel2.set(ControlMode.PercentOutput, 0);
+  //turretWheel1.set(ControlMode.Velocity, 0);
+  //turretWheel2.set(ControlMode.Velocity, 0);
 }
 }

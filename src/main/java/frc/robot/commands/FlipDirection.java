@@ -7,34 +7,21 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.Drive;
 
-public class Shoot extends CommandBase {
-  WPI_TalonFX Shooter1 = new WPI_TalonFX(Constants.Shooter1);
-  WPI_TalonFX Shooter2 = new WPI_TalonFX(Constants.Shooter2);
-  private XboxController m_Joystick;
-  private Button m_button;
-  private Turret turret;
-  
+public class FlipDirection extends CommandBase {
+  private Drive drive;
   
   /**
-   * Creates a new Shoot.
+   * Creates a new FlipDirection.
    */
-  public Shoot(Turret turret, XboxController Joy, Button button) {
-    m_Joystick = Joy;
-    m_button = button;
-    this.turret = turret;
-    addRequirements(turret);
-
+  public FlipDirection(Drive drive) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.drive = drive;
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
@@ -45,13 +32,7 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turret.startWheel();
-    
-
-    
-
-
-
+    drive.flipDirection();
   }
 
   // Called once the command ends or is interrupted.
