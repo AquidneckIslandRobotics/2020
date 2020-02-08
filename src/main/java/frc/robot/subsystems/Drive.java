@@ -30,7 +30,7 @@ public class Drive extends SubsystemBase {
   WPI_TalonFX rightFollower = new WPI_TalonFX(Constants.RightFollower);
    
     DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
-
+    
     boolean forward = true;
   /**
    * Creates a new Drive.
@@ -130,6 +130,6 @@ leftLeader.configFactoryDefault();
   public void flipDirection(){
     leftLeader.setInverted(!forward);
     rightLeader.setInverted(forward);
-    forward = !forward;    
+    forward = !forward;
   }
 }
